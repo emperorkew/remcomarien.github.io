@@ -4,32 +4,39 @@ layout: "single"
 url: "/about/"
 ---
 
-## Hey
+## Personnel File — R. Marien
 
-I'm Remco. I studied chemical & pharmaceutical engineering at university — reactors, thermodynamics, separations, the works. Graduated, and then spent way too much time being frustrated by slow manual processes and clunky tooling.
+Pharmaceutical process engineer with a compulsive need to automate things. I studied chemical & pharmaceutical engineering — reaction kinetics, crystallization, GMP manufacturing, the full curriculum. Then I discovered that most pharma plants still run on paper batch records and Excel trending.
 
-So I taught myself to code.
+So I started fixing that.
 
-### What that means in practice
+### What I actually do
 
-I'm not a "full-stack developer" or a "chemical engineer" in the traditional sense. I'm somewhere in between. The problems I find interesting are the ones that need both: understanding what's happening physically/chemically AND being able to build the software to solve it.
+I sit at the intersection of **process engineering** and **software/embedded systems**. The problems I care about need both: you need to understand what's physically happening in a reactor AND be able to write the code that controls or monitors it.
 
-Some things I've worked on or am interested in:
+In practice:
 
-- Automating lab workflows that used to take hours
-- Process simulation and optimization
-- Making sense of messy experimental data
-- Building internal tools for engineering teams
-- Anything that removes tedious manual work
+- Designing control strategies for API manufacturing (reaction, crystallization, drying)
+- Writing DCS/PLC logic for batch and continuous processes
+- Building PAT data systems — from inline NIR/Raman to multivariate models
+- Developing MPC and advanced control for pharma processes
+- Custom embedded sensor systems (C/Rust on ARM) for process monitoring
+- Python tooling for process data analysis, batch comparison, deviation trending
 
-### On the code side
+### Languages & tools
 
-Mostly Python, some web stuff, some data engineering. I'm not religious about languages or frameworks — I use whatever fits. I care more about whether something works well and is maintainable than whether it uses the latest shiny tech.
+**Systems-level:** C, C++, Rust — for embedded, real-time control, firmware
 
-### On the engineering side
+**Application-level:** Python, SQL — for data, tooling, integration
 
-Reaction engineering, process design, pharmaceutical manufacturing (GMP). I know what a CSTR is, I can read a PFD, and I know why your crystallization keeps failing.
+**Protocols:** MODBUS RTU/TCP, OPC-UA, MQTT, PROFIBUS, 4-20mA/HART
+
+**Platforms:** Linux, STM32, ESP32, Raspberry Pi, DeltaV, PCS7
+
+### The engineering side
+
+Reaction engineering, crystallization design, pharmaceutical process development. GMP/GDP, Annex 15, 21 CFR Part 211, ICH Q8-Q12. I've written validation protocols, reviewed batch records, and debugged why a crystallization keeps producing the wrong polymorph at 3am.
 
 ---
 
-Want to chat? [LinkedIn](https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/) is probably the easiest.
+Contact: [LinkedIn](https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/) | [GitHub](https://github.com/remcomarien)

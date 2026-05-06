@@ -84,6 +84,16 @@
     }, { passive: true });
   }
 
+  // === P&ID Parallax ===
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg && window.innerWidth > 768) {
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 12;
+      const y = (e.clientY / window.innerHeight - 0.5) * 8;
+      heroBg.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  }
+
   // === Magnetic Buttons ===
   document.querySelectorAll('.magnetic').forEach(el => {
     const strength = parseInt(el.dataset.strength) || 20;
@@ -104,7 +114,7 @@
   // === Typing Effect ===
   const typed = document.getElementById('typed');
   if (typed) {
-    const words = ['chemist + coder', 'reactor whisperer', 'process nerd', 'data wrangler', 'automation addict'];
+    const words = ['pharma engineer', 'reactor whisperer', 'process nerd', 'data wrangler', 'automation addict', 'embedded systems', 'real-time control'];
     let wordIdx = 0, charIdx = 0, deleting = false;
 
     function typeLoop() {
@@ -158,131 +168,84 @@
 
   document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 
-  // === 3D Molecule (Three.js) ===
-  const threeContainer = document.getElementById('three-container');
-  if (threeContainer && typeof THREE !== 'undefined') {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, threeContainer.clientWidth / threeContainer.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(threeContainer.clientWidth, threeContainer.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    threeContainer.appendChild(renderer.domElement);
+  // === Live Sensor & DCS Simulation ===
+  function simulateProcess() {
+    const els = {
+      temp: document.getElementById('sv-temp'),
+      pres: document.getElementById('sv-pres'),
+      flow: document.getElementById('sv-flow'),
+      level: document.getElementById('sv-level'),
+      dcsT: document.getElementById('dcs-t1'),
+      dcsP: document.getElementById('dcs-p1'),
+      dcsF: document.getElementById('dcs-f1'),
+      dcsYield: document.getElementById('dcs-yield'),
+      modbus: document.getElementById('dcs-modbus')
+    };
+    if (!els.temp) return;
 
-    // Create molecule structure
-    const molecule = new THREE.Group();
-    const isDark = () => html.getAttribute('data-theme') === 'dark';
+    let t = 342.7, p = -0.85, f = 14.8, l = 67.2, y = 87.3;
 
-    function getColors() {
-      return isDark()
-        ? { chem: 0xf59e0b, cs: 0x5eead4, bond: 0x292524 }
-        : { chem: 0xb45309, cs: 0x0f766e, bond: 0xd6d3d1 };
-    }
+    function update() {
+      t += (Math.random() - 0.5) * 0.5;
+      p += (Math.random() - 0.5) * 0.02;
+      f += (Math.random() - 0.5) * 0.3;
+      l += (Math.random() - 0.5) * 0.3;
+      y += (Math.random() - 0.5) * 0.2;
+      t = Math.max(338, Math.min(348, t));
+      p = Math.max(-0.92, Math.min(-0.78, p));
+      f = Math.max(13, Math.min(16.5, f));
+      l = Math.max(60, Math.min(75, l));
+      y = Math.max(85, Math.min(92, y));
 
-    // Atoms
-    const atomPositions = [
-      [0, 0, 0], [2, 1, 0.5], [-1.5, 1.5, -0.5], [1, -1.5, 1],
-      [-2, -1, -1], [0.5, 2, -1.5], [-1, -2, 1.5], [2.5, -0.5, -1],
-      [-2.5, 0.5, 1], [0, 1, 2], [1.5, -2, -1], [-1, 2.5, 0.5]
-    ];
+      els.temp.textContent = t.toFixed(1);
+      els.pres.textContent = p.toFixed(2);
+      els.flow.textContent = f.toFixed(1);
+      els.level.textContent = l.toFixed(1);
 
-    const atoms = [];
-    const atomGeo = new THREE.SphereGeometry(0.2, 16, 16);
+      if (els.dcsT) els.dcsT.textContent = t.toFixed(1) + ' K';
+      if (els.dcsP) els.dcsP.textContent = p.toFixed(2) + ' bar';
+      if (els.dcsF) els.dcsF.textContent = f.toFixed(1) + ' m\u00B3/h';
+      if (els.dcsYield) els.dcsYield.textContent = y.toFixed(1) + '%';
 
-    atomPositions.forEach((pos, i) => {
-      const colors = getColors();
-      const mat = new THREE.MeshPhongMaterial({
-        color: i % 2 === 0 ? colors.chem : colors.cs,
-        transparent: true,
-        opacity: 0.8,
-        shininess: 100
-      });
-      const atom = new THREE.Mesh(atomGeo, mat);
-      atom.position.set(...pos);
-      atom.userData = { originalPos: [...pos], phase: Math.random() * Math.PI * 2 };
-      molecule.add(atom);
-      atoms.push(atom);
-    });
-
-    // Bonds
-    const bonds = [];
-    const bondMat = new THREE.LineBasicMaterial({ color: getColors().bond, transparent: true, opacity: 0.3 });
-
-    for (let i = 0; i < atoms.length; i++) {
-      for (let j = i + 1; j < atoms.length; j++) {
-        const dist = atoms[i].position.distanceTo(atoms[j].position);
-        if (dist < 3) {
-          const geo = new THREE.BufferGeometry().setFromPoints([atoms[i].position.clone(), atoms[j].position.clone()]);
-          const bond = new THREE.Line(geo, bondMat.clone());
-          molecule.add(bond);
-          bonds.push({ line: bond, a: i, b: j });
-        }
+      // Fake Modbus frames in DCS panel
+      if (els.modbus) {
+        const bytes = Array.from({length: 6}, () =>
+          Math.floor(Math.random() * 256).toString(16).padStart(2, '0').toUpperCase()
+        );
+        els.modbus.textContent = 'TX: ' + bytes.join(' ');
       }
     }
 
-    scene.add(molecule);
-
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-    const pointLight = new THREE.PointLight(0xb45309, 0.8, 20);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
-    const pointLight2 = new THREE.PointLight(0x0f766e, 0.6, 20);
-    pointLight2.position.set(-5, -3, 3);
-    scene.add(pointLight2);
-
-    camera.position.z = 7;
-
-    // Mouse interaction
-    let targetRotX = 0, targetRotY = 0;
-    document.addEventListener('mousemove', (e) => {
-      targetRotX = (e.clientY / window.innerHeight - 0.5) * 0.5;
-      targetRotY = (e.clientX / window.innerWidth - 0.5) * 0.8;
-    });
-
-    // Animation
-    let time = 0;
-    function animate3D() {
-      requestAnimationFrame(animate3D);
-      time += 0.01;
-
-      // Smooth rotation following mouse
-      molecule.rotation.x += (targetRotX - molecule.rotation.x) * 0.02;
-      molecule.rotation.y += (targetRotY - molecule.rotation.y) * 0.02;
-      molecule.rotation.z = Math.sin(time * 0.3) * 0.1;
-
-      // Breathing atoms
-      atoms.forEach((atom, i) => {
-        const phase = atom.userData.phase;
-        const scale = 1 + Math.sin(time * 2 + phase) * 0.15;
-        atom.scale.set(scale, scale, scale);
-      });
-
-      // Update bonds
-      bonds.forEach(({ line, a, b }) => {
-        const positions = line.geometry.attributes.position;
-        positions.setXYZ(0, atoms[a].position.x, atoms[a].position.y, atoms[a].position.z);
-        positions.setXYZ(1, atoms[b].position.x, atoms[b].position.y, atoms[b].position.z);
-        positions.needsUpdate = true;
-      });
-
-      // Update colors on theme change
-      const colors = getColors();
-      atoms.forEach((atom, i) => {
-        atom.material.color.setHex(i % 2 === 0 ? colors.chem : colors.cs);
-      });
-
-      renderer.render(scene, camera);
-    }
-    animate3D();
-
-    // Resize
-    window.addEventListener('resize', () => {
-      camera.aspect = threeContainer.clientWidth / threeContainer.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(threeContainer.clientWidth, threeContainer.clientHeight);
-    });
+    setInterval(update, 1100);
   }
+  simulateProcess();
+
+  // === MODBUS Frame Inspector Animation ===
+  function animateModbus() {
+    const ids = ['mb-addr','mb-func','mb-regh','mb-regl','mb-cnth','mb-cntl','mb-crch','mb-crcl'];
+    const els = ids.map(id => document.getElementById(id));
+    if (!els[0]) return;
+
+    const funcs = ['01','02','03','04','05','06'];
+    function update() {
+      const addr = (Math.floor(Math.random() * 5) + 1).toString(16).padStart(2,'0').toUpperCase();
+      const func = funcs[Math.floor(Math.random() * funcs.length)];
+      const regH = '00';
+      const regL = (Math.floor(Math.random() * 30) + 1).toString(16).padStart(2,'0').toUpperCase();
+      const cntH = '00';
+      const cntL = (Math.floor(Math.random() * 8) + 1).toString(16).padStart(2,'0').toUpperCase();
+      const crcH = Math.floor(Math.random() * 256).toString(16).padStart(2,'0').toUpperCase();
+      const crcL = Math.floor(Math.random() * 256).toString(16).padStart(2,'0').toUpperCase();
+
+      const vals = [addr, func, regH, regL, cntH, cntL, crcH, crcL];
+      els.forEach((el, i) => {
+        if (el) el.textContent = vals[i];
+      });
+    }
+
+    setInterval(update, 2500);
+  }
+  animateModbus();
 
   // === Reaction Rate Demo ===
   const tempSlider = document.getElementById('temp-slider');

@@ -4,8 +4,24 @@ layout: "single"
 url: "/projects/"
 ---
 
-## Projects
+## Project Log
 
-Coming soon. I'm working on a few things right now — will share them here when they're ready to show.
+Work at the intersection of pharmaceutical engineering, embedded systems, and software. Some things I'm building or have built.
 
-In the meantime, you can check [GitHub](https://github.com/remcomarien) for whatever I'm tinkering with.
+---
+
+### Active
+
+- **PAT Data Pipeline** — Inline sensor data (NIR, Raman) → historian → multivariate models → real-time CQA predictions
+- **Batch Comparison Tool** — Python tool for overlaying batch trends, identifying golden batch profiles, and flagging deviations
+- **Custom Sensor Node** — STM32-based board with PT100 + pressure + conductivity, MODBUS RTU output, designed for retrofit on legacy reactors
+
+### Planned
+
+- **MPC for Crystallization** — Model predictive control for cooling crystallization, targeting particle size distribution
+- **Electronic Batch Record Engine** — Lightweight, Part 11-compliant batch execution system
+- **OPC-UA to MQTT Bridge** — Edge gateway for connecting legacy DCS historians to modern data platforms
+
+---
+
+More details coming as things move from prototype to presentable. Follow progress on [GitHub](https://github.com/remcomarien).
