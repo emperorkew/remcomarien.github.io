@@ -39,4 +39,4 @@ Reaction engineering, crystallization design, pharmaceutical process development
 
 ---
 
-Contact: [LinkedIn](https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/) | [GitHub](https://github.com/remcomarien)
+Contact: [LinkedIn](https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/) | [GitHub](https://github.com/emperorkew)

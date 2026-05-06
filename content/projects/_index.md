@@ -24,4 +24,4 @@ Work at the intersection of pharmaceutical engineering, embedded systems, and so
 
 ---
 
-More details coming as things move from prototype to presentable. Follow progress on [GitHub](https://github.com/remcomarien).
+More details coming as things move from prototype to presentable. Follow progress on [GitHub](https://github.com/emperorkew).
