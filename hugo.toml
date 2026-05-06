@@ -5,19 +5,55 @@ theme = "PaperMod"
 
 [params]
   defaultTheme = "auto"
-  showReadingTime = false
+  showReadingTime = true
   showShareButtons = false
+  showBreadCrumbs = true
 
-  [params.homeInfoParams]
-    Title = "Welkom"
-    Content = "Dit is mijn persoonlijke website. Hier deel ik projecten, ideeën en meer."
+  [params.profileMode]
+    enabled = true
+    title = "Remco Marien"
+    subtitle = """Where molecules meet algorithms — Chemical & Pharmaceutical Engineering | Computer Science"""
+    imageUrl = ""
+    imageWidth = 150
+    imageHeight = 150
+
+    [[params.profileMode.buttons]]
+      name = "About"
+      url = "/about/"
+
+    [[params.profileMode.buttons]]
+      name = "Projects"
+      url = "/projects/"
 
   [[params.socialIcons]]
     name = "github"
     url = "https://github.com/remcomarien"
+
+  [[params.socialIcons]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/"
+
+[params.cover]
+  hiddenInList = false
+  hiddenInSingle = false
 
 [menu]
   [[menu.main]]
     name = "Home"
     url = "/"
     weight = 1
+
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 2
+
+  [[menu.main]]
+    name = "Projects"
+    url = "/projects/"
+    weight = 3
+
+  [[menu.main]]
+    name = "Blog"
+    url = "/posts/"
+    weight = 4
