@@ -1,41 +1,6 @@
 baseURL = "https://emperorkew.github.io/remcomarien.github.io/"
 locale = "nl"
 title = "Remco Marien"
-theme = "PaperMod"
-
-[params]
-  defaultTheme = "auto"
-  showReadingTime = true
-  showShareButtons = false
-  showBreadCrumbs = true
-
-  [params.profileMode]
-    enabled = true
-    title = "Remco Marien"
-    subtitle = """Where molecules meet algorithms — Chemical & Pharmaceutical Engineering | Computer Science"""
-    imageUrl = ""
-    imageWidth = 150
-    imageHeight = 150
-
-    [[params.profileMode.buttons]]
-      name = "About"
-      url = "/about/"
-
-    [[params.profileMode.buttons]]
-      name = "Projects"
-      url = "/projects/"
-
-  [[params.socialIcons]]
-    name = "github"
-    url = "https://github.com/remcomarien"
-
-  [[params.socialIcons]]
-    name = "linkedin"
-    url = "https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/"
-
-[params.cover]
-  hiddenInList = false
-  hiddenInSingle = false
 
 [menu]
   [[menu.main]]
