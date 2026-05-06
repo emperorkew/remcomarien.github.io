@@ -1,0 +1,84 @@
+<!-- ===== INTERACTIVE DEMO ===== -->
+<section class="demo-section reveal" id="demo">
+  <div class="section-header">
+    <h2 data-tag="SEC-201">Reaction kinetics</h2>
+    <p class="section-sub">The Arrhenius equation — the CPP behind every API synthesis step. Drag the sliders to explore how temperature, concentration and activation energy drive reaction rate.</p>
+  </div>
+
+  <div class="demo-container">
+    <div class="demo-controls">
+      <div class="control-group">
+        <label>
+          <span class="control-label">Temperature</span>
+          <span class="control-value" id="temp-value">298 K</span>
+        </label>
+        <input type="range" id="temp-slider" min="250" max="500" value="298" class="slider">
+      </div>
+      <div class="control-group">
+        <label>
+          <span class="control-label">Concentration</span>
+          <span class="control-value" id="conc-value">1.0 mol/L</span>
+        </label>
+        <input type="range" id="conc-slider" min="1" max="50" value="10" class="slider">
+      </div>
+      <div class="control-group">
+        <label>
+          <span class="control-label">Activation Energy</span>
+          <span class="control-value" id="ea-value">50 kJ/mol</span>
+        </label>
+        <input type="range" id="ea-slider" min="10" max="150" value="50" class="slider">
+      </div>
+    </div>
+    <div class="demo-output">
+      <canvas id="reaction-canvas" width="500" height="280"></canvas>
+      <div class="demo-result">
+        <div class="result-item">
+          <span class="result-label">k</span>
+          <span class="result-value" id="rate-k">—</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">rate</span>
+          <span class="result-value" id="rate-r">—</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">equation</span>
+          <span class="result-formula">r = Ae<sup>-Ea/RT</sup>[C]<sup>n</sup></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CSTR Design Equations -->
+  <div class="cstr-equations reveal">
+    <div class="panel-bar">CSTR R-101 — DESIGN EQUATIONS</div>
+    <div class="cstr-body">
+      <div class="eq-block">
+        <div class="eq-label">Component mass balance (species A)</div>
+        <div class="eq-math">
+          V &middot; <span class="eq-deriv">dC<sub>A</sub>/dt</span> = F<sub>in</sub> &middot; (C<sub>A0</sub> &minus; C<sub>A</sub>) &minus; V &middot; r<sub>A</sub>
+        </div>
+        <div class="eq-note">Accumulation = In &minus; Out &minus; Reaction</div>
+      </div>
+      <div class="eq-block">
+        <div class="eq-label">Reaction rate (n-th order, Arrhenius)</div>
+        <div class="eq-math">
+          r<sub>A</sub> = A &middot; e<sup>&minus;E<sub>a</sub>/RT</sup> &middot; C<sub>A</sub><sup>n</sup>
+        </div>
+      </div>
+      <div class="eq-block">
+        <div class="eq-label">Energy balance</div>
+        <div class="eq-math">
+          V&rho;C<sub>p</sub> &middot; <span class="eq-deriv">dT/dt</span> = F<sub>in</sub>&rho;C<sub>p</sub>(T<sub>0</sub> &minus; T) + V(&minus;&Delta;H<sub>rxn</sub>)r<sub>A</sub> &minus; UA(T &minus; T<sub>c</sub>)
+        </div>
+        <div class="eq-note">Accumulation = Flow + Reaction heat &minus; Jacket cooling</div>
+      </div>
+      <div class="eq-block">
+        <div class="eq-label">Steady state (dC<sub>A</sub>/dt = 0)</div>
+        <div class="eq-math">
+          &tau; = V/F = (C<sub>A0</sub> &minus; C<sub>A</sub>) / r<sub>A</sub>
+        </div>
+        <div class="eq-note">Residence time &tau; determines conversion at given k, C<sub>A0</sub></div>
+      </div>
+    </div>
+  </div>
+</section>

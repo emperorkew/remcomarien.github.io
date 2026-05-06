@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="page-content page-404">
+  <div class="error-panel">
+    <div class="panel-bar">ALARM — EQUIPMENT NOT FOUND</div>
+    <div class="error-body">
+      <div class="error-code">404</div>
+      <div class="error-detail">
+        <h1>Tag not found</h1>
+        <p>The requested equipment tag does not exist in this process area. Check the P&ID reference and try again.</p>
+        <div class="error-meta">
+          <span>AREA: UNKNOWN</span>
+          <span>TAG: {{ .RelPermalink }}</span>
+          <span>STATUS: NOT FOUND</span>
+        </div>
+        <a href="{{ "" | relURL }}" class="btn btn-main magnetic" data-strength="25">
+          <span>Return to control room</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

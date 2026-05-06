@@ -1,0 +1,140 @@
+<!-- ===== EMBEDDED & AUTOMATION ===== -->
+<section class="embedded-section reveal" id="embedded">
+  <div class="section-header">
+    <h2 data-tag="SEC-401">The automation layer</h2>
+    <p class="section-sub">Between the reactor and the batch record sits a stack of controllers, protocols, and integrations. This is where GMP compliance meets real-time control.</p>
+  </div>
+
+  <div class="embedded-grid">
+    <!-- Control architecture diagram -->
+    <div class="arch-panel">
+      <div class="arch-header">ISA-95 Control Architecture</div>
+      <div class="arch-layers">
+        <div class="arch-layer arch-l4">
+          <span class="arch-label">L4</span>
+          <span class="arch-name">Enterprise</span>
+          <span class="arch-detail">ERP / MES / Historian</span>
+        </div>
+        <div class="arch-connector">
+          <svg width="100%" height="20"><line x1="50%" y1="0" x2="50%" y2="20" stroke="var(--highlight)" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
+          <span class="arch-proto">OPC-UA / TCP/IP</span>
+        </div>
+        <div class="arch-layer arch-l3">
+          <span class="arch-label">L3</span>
+          <span class="arch-name">Supervisory</span>
+          <span class="arch-detail">SCADA / HMI / DCS</span>
+        </div>
+        <div class="arch-connector">
+          <svg width="100%" height="20"><line x1="50%" y1="0" x2="50%" y2="20" stroke="var(--highlight)" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
+          <span class="arch-proto">MODBUS TCP / Ethernet/IP</span>
+        </div>
+        <div class="arch-layer arch-l2">
+          <span class="arch-label">L2</span>
+          <span class="arch-name">Control</span>
+          <span class="arch-detail">PLC / PAC / RTU</span>
+        </div>
+        <div class="arch-connector">
+          <svg width="100%" height="20"><line x1="50%" y1="0" x2="50%" y2="20" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
+          <span class="arch-proto">4-20mA / HART / PROFIBUS</span>
+        </div>
+        <div class="arch-layer arch-l1">
+          <span class="arch-label">L1</span>
+          <span class="arch-name">Field</span>
+          <span class="arch-detail">Sensors / Actuators / Valves</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Protocol & hardware cards -->
+    <div class="embedded-cards">
+      <div class="emb-card">
+        <div class="emb-card-header">
+          <span class="emb-status"></span>
+          PAT & Inline Sensors
+        </div>
+        <div class="emb-card-body">
+          <p>NIR probes, Raman, FBRM, inline pH and conductivity. Real-time CQA monitoring that replaces offline lab sampling — enabling RTRT and continuous verification.</p>
+          <div class="emb-tags"><span>NIR</span><span>Raman</span><span>FBRM</span><span>4-20mA</span></div>
+        </div>
+      </div>
+
+      <div class="emb-card">
+        <div class="emb-card-header">
+          <span class="emb-status"></span>
+          DCS & Batch Recipes
+        </div>
+        <div class="emb-card-body">
+          <p>ISA-88 recipe structures, phase logic, exception handling. Automated batch execution with full audit trail, alarming, and Part 11 compliance built in.</p>
+          <div class="emb-tags"><span>ISA-88</span><span>S88</span><span>SFC</span><span>Part 11</span></div>
+        </div>
+      </div>
+
+      <div class="emb-card">
+        <div class="emb-card-header">
+          <span class="emb-status"></span>
+          Data Integration
+        </div>
+        <div class="emb-card-body">
+          <p>OPC-UA historian to SQL. Contextualized batch data for trending, golden batch analysis, and multivariate statistical process control (MSPC).</p>
+          <div class="emb-tags"><span>OPC-UA</span><span>Historian</span><span>SQL</span><span>MSPC</span></div>
+        </div>
+      </div>
+
+      <div class="emb-card">
+        <div class="emb-card-header">
+          <span class="emb-status emb-status-amber"></span>
+          Embedded Systems & Edge
+        </div>
+        <div class="emb-card-body">
+          <p>Custom firmware in C/Rust on STM32/ESP32. Real-time sensor acquisition, control loops running at kHz rates. Bridging the analog world to digital with deterministic timing.</p>
+          <div class="emb-tags"><span>STM32</span><span>C/Rust</span><span>RTOS</span><span>SPI/I2C</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Code + MODBUS side by side -->
+  <div class="embedded-bottom">
+    <!-- Firmware snippet -->
+    <div class="code-panel reveal">
+      <div class="code-header">
+        <span class="code-dot code-dot-red"></span>
+        <span class="code-dot code-dot-amber"></span>
+        <span class="code-dot code-dot-green"></span>
+        <span class="code-filename">sensor_loop.c</span>
+      </div>
+      <pre class="code-body"><code><span class="c-kw">void</span> <span class="c-fn">sensor_read_loop</span>(<span class="c-kw">void</span>) {
+  <span class="c-type">float</span> temp = pt100_read(ADC_CH1);
+  <span class="c-type">float</span> pres = transducer_read(ADC_CH2);
+
+  <span class="c-cmt">// Apply 1st-order digital filter</span>
+  temp = alpha * temp + (<span class="c-num">1.0f</span> - alpha) * prev_t;
+  prev_t = temp;
+
+  <span class="c-cmt">// Write to MODBUS holding registers</span>
+  mb_regs[<span class="c-num">0</span>] = float_to_u16(temp);
+  mb_regs[<span class="c-num">1</span>] = float_to_u16(pres);
+
+  <span class="c-fn">HAL_GPIO_TogglePin</span>(LED_PORT, LED_PIN);
+}</code></pre>
+    </div>
+
+    <!-- Live MODBUS frame visualization -->
+    <div class="modbus-viz reveal">
+      <div class="modbus-header">MODBUS RTU — Live Frame Inspector</div>
+      <div class="modbus-frame" id="modbus-frame">
+        <div class="frame-byte" data-label="ADDR"><span id="mb-addr">01</span></div>
+        <div class="frame-byte" data-label="FUNC"><span id="mb-func">03</span></div>
+        <div class="frame-byte" data-label="REG-H"><span id="mb-regh">00</span></div>
+        <div class="frame-byte" data-label="REG-L"><span id="mb-regl">01</span></div>
+        <div class="frame-byte" data-label="CNT-H"><span id="mb-cnth">00</span></div>
+        <div class="frame-byte" data-label="CNT-L"><span id="mb-cntl">02</span></div>
+        <div class="frame-byte frame-crc" data-label="CRC-H"><span id="mb-crch">95</span></div>
+        <div class="frame-byte frame-crc" data-label="CRC-L"><span id="mb-crcl">C8</span></div>
+      </div>
+      <div class="modbus-desc">
+        Slave <span class="mb-hl">0x01</span> → Read Holding Registers → Addr <span class="mb-hl">0x0001</span> × <span class="mb-hl">2</span> registers → CRC16
+      </div>
+    </div>
+  </div>
+</section>

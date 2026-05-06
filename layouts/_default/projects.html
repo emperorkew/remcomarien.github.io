@@ -1,0 +1,108 @@
+{{ define "main" }}
+<article class="page-content page-projects">
+  <header class="page-header">
+    <span class="page-tag">SEC-601</span>
+    <h1>{{ .Title }}</h1>
+    <p class="page-subtitle">Ideas and plans at the intersection of pharmaceutical engineering, embedded systems, and software. Nothing shipped yet — everything here is in design or early prototyping phase.</p>
+  </header>
+
+  <section class="projects-group">
+    <h2 data-tag="SEC-602">Planned</h2>
+    <div class="project-cards">
+      <div class="project-card project-planned">
+        <div class="project-card-header">
+          <span class="emb-status emb-status-amber"></span>
+          <span class="project-name">PAT Data Pipeline</span>
+          <span class="domain-badge domain-pharma">PHARMA</span>
+          <span class="project-id">PRJ-001</span>
+        </div>
+        <div class="project-card-body">
+          <p>Inline sensor data (NIR, Raman) to historian to multivariate models to real-time CQA predictions. Replacing offline lab sampling with continuous process verification.</p>
+          <div class="project-tags">
+            <span>NIR</span><span>Raman</span><span>Python</span><span>OPC-UA</span><span>MSPC</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card project-planned">
+        <div class="project-card-header">
+          <span class="emb-status emb-status-amber"></span>
+          <span class="project-name">Batch Comparison Tool</span>
+          <span class="domain-badge domain-software">SOFTWARE</span>
+          <span class="project-id">PRJ-002</span>
+        </div>
+        <div class="project-card-body">
+          <p>Python tool for overlaying batch trends, identifying golden batch profiles, and flagging deviations against statistical limits.</p>
+          <div class="project-tags">
+            <span>Python</span><span>SQL</span><span>Historian</span><span>Golden Batch</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card project-planned">
+        <div class="project-card-header">
+          <span class="emb-status emb-status-amber"></span>
+          <span class="project-name">Custom Sensor Node</span>
+          <span class="domain-badge domain-embedded">EMBEDDED</span>
+          <span class="project-id">PRJ-003</span>
+        </div>
+        <div class="project-card-body">
+          <p>STM32-based board with PT100 + pressure + conductivity, MODBUS RTU output, designed for retrofit on legacy reactors without DCS integration.</p>
+          <div class="project-tags">
+            <span>STM32</span><span>C</span><span>MODBUS</span><span>PCB</span><span>PT100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card project-planned">
+        <div class="project-card-header">
+          <span class="emb-status emb-status-amber"></span>
+          <span class="project-name">MPC for Crystallization</span>
+          <span class="domain-badge domain-pharma">PHARMA</span>
+          <span class="project-id">PRJ-004</span>
+        </div>
+        <div class="project-card-body">
+          <p>Model predictive control for cooling crystallization, targeting particle size distribution and polymorph control.</p>
+          <div class="project-tags">
+            <span>MPC</span><span>Python</span><span>PSD</span><span>Crystallization</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card project-planned">
+        <div class="project-card-header">
+          <span class="emb-status emb-status-amber"></span>
+          <span class="project-name">Electronic Batch Record Engine</span>
+          <span class="domain-badge domain-software">SOFTWARE</span>
+          <span class="project-id">PRJ-005</span>
+        </div>
+        <div class="project-card-body">
+          <p>Lightweight, Part 11-compliant batch execution system with ISA-88 recipe management and audit trail.</p>
+          <div class="project-tags">
+            <span>ISA-88</span><span>Part 11</span><span>Python</span><span>SQL</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card project-planned">
+        <div class="project-card-header">
+          <span class="emb-status emb-status-amber"></span>
+          <span class="project-name">OPC-UA to MQTT Bridge</span>
+          <span class="domain-badge domain-embedded">EMBEDDED</span>
+          <span class="project-id">PRJ-006</span>
+        </div>
+        <div class="project-card-body">
+          <p>Edge gateway in Rust for connecting legacy DCS historians to modern data platforms with buffering and failover.</p>
+          <div class="project-tags">
+            <span>OPC-UA</span><span>MQTT</span><span>Rust</span><span>Edge</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="projects-footer">
+    <p>All projects are in planning or early design phase. Follow progress on <a href="https://github.com/emperorkew" target="_blank" rel="noopener">GitHub</a>.</p>
+  </div>
+</article>
+{{ end }}

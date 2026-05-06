@@ -143,77 +143,26 @@
     typeLoop();
   }
 
-  // === Counter Animation ===
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.dataset.target);
-        const suffix = el.dataset.suffix || '';
-        if (!target) return;
-        let current = 0;
-        const step = target / 40;
-        const interval = setInterval(() => {
-          current += step;
-          if (current >= target) {
-            current = target;
-            clearInterval(interval);
-          }
-          el.textContent = Math.round(current) + suffix;
-        }, 40);
-        counterObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
-
-  // === Live Sensor & DCS Simulation ===
+  // === Hero Statusbar Live Simulation ===
   function simulateProcess() {
-    const els = {
-      temp: document.getElementById('sv-temp'),
-      pres: document.getElementById('sv-pres'),
-      flow: document.getElementById('sv-flow'),
-      level: document.getElementById('sv-level'),
-      dcsT: document.getElementById('dcs-t1'),
-      dcsP: document.getElementById('dcs-p1'),
-      dcsF: document.getElementById('dcs-f1'),
-      dcsYield: document.getElementById('dcs-yield'),
-      modbus: document.getElementById('dcs-modbus')
-    };
-    if (!els.temp) return;
+    const heroTemp = document.getElementById('hero-temp');
+    const heroFlow = document.getElementById('hero-flow');
+    const heroYield = document.getElementById('hero-yield');
+    if (!heroTemp) return;
 
-    let t = 342.7, p = -0.85, f = 14.8, l = 67.2, y = 87.3;
+    let t = 342.7, f = 14.8, y = 87.3;
 
     function update() {
       t += (Math.random() - 0.5) * 0.5;
-      p += (Math.random() - 0.5) * 0.02;
       f += (Math.random() - 0.5) * 0.3;
-      l += (Math.random() - 0.5) * 0.3;
       y += (Math.random() - 0.5) * 0.2;
       t = Math.max(338, Math.min(348, t));
-      p = Math.max(-0.92, Math.min(-0.78, p));
       f = Math.max(13, Math.min(16.5, f));
-      l = Math.max(60, Math.min(75, l));
       y = Math.max(85, Math.min(92, y));
 
-      els.temp.textContent = t.toFixed(1);
-      els.pres.textContent = p.toFixed(2);
-      els.flow.textContent = f.toFixed(1);
-      els.level.textContent = l.toFixed(1);
-
-      if (els.dcsT) els.dcsT.textContent = t.toFixed(1) + ' K';
-      if (els.dcsP) els.dcsP.textContent = p.toFixed(2) + ' bar';
-      if (els.dcsF) els.dcsF.textContent = f.toFixed(1) + ' m\u00B3/h';
-      if (els.dcsYield) els.dcsYield.textContent = y.toFixed(1) + '%';
-
-      // Fake Modbus frames in DCS panel
-      if (els.modbus) {
-        const bytes = Array.from({length: 6}, () =>
-          Math.floor(Math.random() * 256).toString(16).padStart(2, '0').toUpperCase()
-        );
-        els.modbus.textContent = 'TX: ' + bytes.join(' ');
-      }
+      heroTemp.textContent = t.toFixed(1) + ' K';
+      heroFlow.textContent = f.toFixed(1) + ' m\u00B3/h';
+      heroYield.textContent = y.toFixed(1) + '%';
     }
 
     setInterval(update, 1100);
@@ -278,13 +227,18 @@
       drawGraph(T, C, Ea);
     }
 
-    function drawGraph(currentT, C, Ea) {
-      const w = reactionCanvas.width;
-      const h = reactionCanvas.height;
+    let canvasReady = false;
+    function setupCanvas() {
       const dpr = window.devicePixelRatio || 1;
       reactionCanvas.width = reactionCanvas.offsetWidth * dpr;
       reactionCanvas.height = reactionCanvas.offsetHeight * dpr;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvasReady = true;
+    }
+    setupCanvas();
+    window.addEventListener('resize', () => { setupCanvas(); updateDemo(); });
+
+    function drawGraph(currentT, C, Ea) {
       const cw = reactionCanvas.offsetWidth;
       const ch = reactionCanvas.offsetHeight;
 
@@ -382,7 +336,6 @@
     eaSlider.addEventListener('input', updateDemo);
     updateDemo();
 
-    // Redraw on theme change
     if (toggle) {
       toggle.addEventListener('click', () => setTimeout(updateDemo, 50));
     }
@@ -416,6 +369,40 @@
       }
       lastScroll = current;
     }, { passive: true });
+  }
+
+  // === Hamburger Menu ===
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('menu-open');
+      hamburger.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', open);
+    });
+    // Close on nav link click
+    navMenu.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('menu-open');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // === Back to Top ===
+  const backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }, { passive: true });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 
 })();
