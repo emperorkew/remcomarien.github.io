@@ -1,0 +1,23 @@
+baseURL = "https://remcomarien.github.io/"
+locale = "nl"
+title = "Remco Marien"
+theme = "PaperMod"
+
+[params]
+  defaultTheme = "auto"
+  showReadingTime = false
+  showShareButtons = false
+
+  [params.homeInfoParams]
+    Title = "Welkom"
+    Content = "Dit is mijn persoonlijke website. Hier deel ik projecten, ideeën en meer."
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/remcomarien"
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
