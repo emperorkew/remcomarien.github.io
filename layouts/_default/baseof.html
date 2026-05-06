@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
-  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+  <title>{{ if .IsHome }}{{ site.Title }} — Where molecules meet algorithms{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}Chemical engineer & software developer. I turn reactions into solutions.{{ end }}">
   {{ partial "head.html" . }}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,21 +12,24 @@
   <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
 </head>
 <body class="{{ if .IsHome }}home{{ end }}">
-  {{ if .IsHome }}
-  <canvas id="particles" class="particle-canvas"></canvas>
-  {{ end }}
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scroll-progress"></div>
 
-  <header class="site-header">
+  <!-- Custom cursor -->
+  <div class="custom-cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursor-trail"></div>
+
+  <header class="site-header" id="header">
     <nav class="nav-container">
       <a href="{{ "/" | relURL }}" class="site-logo">
-        <span class="logo-chem">R</span><span class="logo-dot">.</span><span class="logo-cs">M</span>
+        <span class="logo-hex">&lt;</span>RM<span class="logo-hex">/&gt;</span>
       </a>
       <ul class="nav-menu">
         {{ range site.Menus.main }}
-        <li><a href="{{ .URL | relURL }}" class="nav-link">{{ .Name }}</a></li>
+        <li><a href="{{ .URL | relURL }}" class="nav-link magnetic" data-strength="20">{{ .Name }}</a></li>
         {{ end }}
       </ul>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <button class="theme-toggle magnetic" id="theme-toggle" data-strength="30" aria-label="Toggle dark mode">
         <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
@@ -39,137 +42,20 @@
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <p class="footer-formula">C<sub>8</sub>H<sub>10</sub>N<sub>4</sub>O<sub>2</sub> + &lt;code/&gt; = this site</p>
-      <p>&copy; {{ now.Year }} Remco Marien</p>
+      <div class="footer-molecule">
+        <span>C</span><sub>8</sub><span>H</span><sub>10</sub><span>N</span><sub>4</sub><span>O</span><sub>2</sub>
+        <span class="footer-plus">+</span>
+        <span class="footer-code">&lt;code/&gt;</span>
+        <span class="footer-eq">=</span>
+        <span class="footer-result">this site</span>
+      </div>
+      <p>&copy; {{ now.Year }} Remco Marien. Built with curiosity and caffeine.</p>
     </div>
   </footer>
 
-  <script>
-    // Theme toggle
-    (function() {
-      const toggle = document.getElementById('theme-toggle');
-      const html = document.documentElement;
-      const stored = localStorage.getItem('theme');
-      if (stored) {
-        html.setAttribute('data-theme', stored);
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        html.setAttribute('data-theme', 'dark');
-      }
-      if (toggle) {
-        toggle.addEventListener('click', () => {
-          const current = html.getAttribute('data-theme');
-          const next = current === 'dark' ? 'light' : 'dark';
-          html.setAttribute('data-theme', next);
-          localStorage.setItem('theme', next);
-        });
-      }
-    })();
-
-    // Scroll reveal
-    (function() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-          }
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    })();
-
-    // Particle background
-    (function() {
-      const canvas = document.getElementById('particles');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let w, h, particles = [], mouse = { x: null, y: null };
-
-      function resize() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      canvas.addEventListener('mousemove', e => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-      });
-      canvas.addEventListener('mouseleave', () => {
-        mouse.x = null;
-        mouse.y = null;
-      });
-
-      class Particle {
-        constructor() {
-          this.reset();
-        }
-        reset() {
-          this.x = Math.random() * w;
-          this.y = Math.random() * h;
-          this.vx = (Math.random() - 0.5) * 0.5;
-          this.vy = (Math.random() - 0.5) * 0.5;
-          this.r = Math.random() * 2.5 + 1;
-          this.type = Math.random() > 0.5 ? 'chem' : 'cs';
-        }
-        update() {
-          if (mouse.x !== null) {
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 150) {
-              this.vx += dx * 0.00008;
-              this.vy += dy * 0.00008;
-            }
-          }
-          this.x += this.vx;
-          this.y += this.vy;
-          if (this.x < 0 || this.x > w) this.vx *= -1;
-          if (this.y < 0 || this.y > h) this.vy *= -1;
-        }
-        draw() {
-          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-          ctx.fillStyle = this.type === 'chem'
-            ? (isDark ? 'rgba(96,165,250,0.5)' : 'rgba(37,99,235,0.3)')
-            : (isDark ? 'rgba(52,211,153,0.5)' : 'rgba(16,185,129,0.3)');
-          ctx.fill();
-        }
-      }
-
-      for (let i = 0; i < 60; i++) particles.push(new Particle());
-
-      function drawBonds() {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 120) {
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              const alpha = (1 - dist / 120) * (isDark ? 0.15 : 0.08);
-              ctx.strokeStyle = isDark
-                ? `rgba(148,163,184,${alpha})`
-                : `rgba(100,116,139,${alpha})`;
-              ctx.lineWidth = 1;
-              ctx.stroke();
-            }
-          }
-        }
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, w, h);
-        particles.forEach(p => { p.update(); p.draw(); });
-        drawBonds();
-        requestAnimationFrame(animate);
-      }
-      animate();
-    })();
-  </script>
+  {{ if .IsHome }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  {{ end }}
+  <script src="{{ "js/main.js" | relURL }}"></script>
 </body>
 </html>
