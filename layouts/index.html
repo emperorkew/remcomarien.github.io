@@ -7,81 +7,55 @@
   </div>
   <div class="hero-content">
     <div class="hero-text">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        <span class="badge-text">Available for collaboration</span>
-      </div>
       <h1 class="hero-title">
-        <span class="title-line title-line-1 scramble" data-text="I turn">I turn</span>
+        <span class="title-line title-line-1">Remco Marien</span>
         <span class="title-line title-line-2">
           <span class="typed-word" id="typed"></span><span class="typed-cursor"></span>
         </span>
-        <span class="title-line title-line-3 scramble" data-text="into solutions.">into solutions.</span>
       </h1>
       <p class="hero-sub">
-        Chemical & pharmaceutical engineer. Software developer.
-        I live where reaction kinetics meets machine learning — turning lab notebooks into datasets and processes into APIs.
+        I studied chemical & pharmaceutical engineering. Then I got obsessed with programming.
+        Now I do both — building software that actually understands what happens inside a reactor.
       </p>
       <div class="hero-cta">
-        <a href="/about/" class="btn btn-glow magnetic" data-strength="25">
-          <span>Discover my story</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a href="{{ "about/" | relURL }}" class="btn btn-main magnetic" data-strength="25">
+          <span>Who is this guy</span>
         </a>
-        <a href="/projects/" class="btn btn-ghost magnetic" data-strength="25">
-          <span>View projects</span>
+        <a href="{{ "projects/" | relURL }}" class="btn btn-ghost magnetic" data-strength="25">
+          <span>Projects</span>
         </a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-value counter" data-target="2">0</span>
-          <span class="stat-label">Disciplines merged</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-value counter" data-target="1000" data-suffix="+">0</span>
-          <span class="stat-label">Lines of code & equations</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-value">&infin;</span>
-          <span class="stat-label">Curiosity</span>
-        </div>
       </div>
     </div>
   </div>
   <div class="scroll-hint" id="scroll-hint">
-    <span>Scroll to explore</span>
     <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 4v12M6 12l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
   </div>
 </section>
 
-<!-- ===== NARRATIVE ===== -->
+<!-- ===== STORY ===== -->
 <section class="narrative" id="narrative">
   <div class="narrative-track">
     <div class="narrative-step reveal" data-delay="0">
       <div class="step-number">01</div>
       <div class="step-content">
-        <span class="step-tag">Origin</span>
-        <h2>It started with a reaction.</h2>
-        <p>Not a chemical one — though those came later. It was the reaction of realizing that engineering without computation is like a reactor without a catalyst: possible, but painfully slow.</p>
+        <h2>The background</h2>
+        <p>Chemical & pharmaceutical engineering — reactors, separations, thermodynamics, the whole deal. I spent years learning how to make things react, separate, and scale. Turns out the hardest part isn't the chemistry. It's the data.</p>
       </div>
     </div>
 
     <div class="narrative-step reveal" data-delay="100">
       <div class="step-number">02</div>
       <div class="step-content">
-        <span class="step-tag">Evolution</span>
-        <h2>Two languages, one grammar.</h2>
-        <p>Chemical equations and code share the same DNA: inputs transform into outputs through well-defined operations. I learned to speak both fluently — and found that the real magic happens at their intersection.</p>
+        <h2>The pivot</h2>
+        <p>Somewhere between debugging MATLAB scripts and manually copying Excel columns I thought: there has to be a better way. There was. I learned to code properly — and never looked back.</p>
       </div>
     </div>
 
     <div class="narrative-step reveal" data-delay="200">
       <div class="step-number">03</div>
       <div class="step-content">
-        <span class="step-tag">Now</span>
-        <h2>Engineering with an API.</h2>
-        <p>Today I build systems where process engineering meets software: optimization algorithms for reactors, data pipelines for lab data, and tools that make scientists more productive.</p>
+        <h2>Now</h2>
+        <p>I write software that solves engineering problems. Process optimization, lab automation, data pipelines — the boring-sounding stuff that saves people hours of work every week.</p>
       </div>
     </div>
   </div>
@@ -90,157 +64,106 @@
 <!-- ===== INTERACTIVE DEMO ===== -->
 <section class="demo-section reveal" id="demo">
   <div class="section-header">
-    <span class="section-tag">// interactive</span>
-    <h2>Play with a reaction</h2>
-    <p class="section-sub">Adjust temperature and concentration. Watch how reaction rate changes in real-time.</p>
+    <h2>Arrhenius in action</h2>
+    <p class="section-sub">Drag the sliders. This is the equation that governs most chemical reactions — and it's running live in your browser right now.</p>
   </div>
 
   <div class="demo-container">
     <div class="demo-controls">
       <div class="control-group">
         <label>
-          <span class="control-label">Temperature (K)</span>
-          <span class="control-value" id="temp-value">298</span>
+          <span class="control-label">Temperature</span>
+          <span class="control-value" id="temp-value">298 K</span>
         </label>
-        <input type="range" id="temp-slider" min="250" max="500" value="298" class="slider slider-chem">
+        <input type="range" id="temp-slider" min="250" max="500" value="298" class="slider">
       </div>
       <div class="control-group">
         <label>
-          <span class="control-label">Concentration (mol/L)</span>
-          <span class="control-value" id="conc-value">1.0</span>
+          <span class="control-label">Concentration</span>
+          <span class="control-value" id="conc-value">1.0 mol/L</span>
         </label>
-        <input type="range" id="conc-slider" min="1" max="50" value="10" class="slider slider-cs">
+        <input type="range" id="conc-slider" min="1" max="50" value="10" class="slider">
       </div>
       <div class="control-group">
         <label>
-          <span class="control-label">Activation Energy (kJ/mol)</span>
-          <span class="control-value" id="ea-value">50</span>
+          <span class="control-label">Activation Energy</span>
+          <span class="control-value" id="ea-value">50 kJ/mol</span>
         </label>
-        <input type="range" id="ea-slider" min="10" max="150" value="50" class="slider slider-chem">
+        <input type="range" id="ea-slider" min="10" max="150" value="50" class="slider">
       </div>
     </div>
     <div class="demo-output">
       <canvas id="reaction-canvas" width="500" height="280"></canvas>
       <div class="demo-result">
         <div class="result-item">
-          <span class="result-label">Rate constant (k)</span>
+          <span class="result-label">k</span>
           <span class="result-value" id="rate-k">—</span>
         </div>
         <div class="result-item">
-          <span class="result-label">Reaction rate (r)</span>
+          <span class="result-label">rate</span>
           <span class="result-value" id="rate-r">—</span>
         </div>
         <div class="result-item">
-          <span class="result-label">Arrhenius equation</span>
-          <span class="result-formula">r = A&middot;e<sup>(-E<sub>a</sub>/RT)</sup>&middot;[C]<sup>n</sup></span>
+          <span class="result-label">equation</span>
+          <span class="result-formula">r = Ae<sup>-Ea/RT</sup>[C]<sup>n</sup></span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== EXPERTISE ===== -->
+<!-- ===== WHAT I DO ===== -->
 <section class="expertise-section reveal" id="expertise">
   <div class="section-header">
-    <span class="section-tag">// expertise</span>
-    <h2>The full stack — from flask to framework</h2>
+    <h2>What I actually do</h2>
   </div>
 
   <div class="skill-grid">
     <div class="skill-card reveal" data-tilt>
-      <div class="skill-icon chem-icon">
-        <svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 6v16l-8 14a4 4 0 004 4h20a4 4 0 004-4l-8-14V6" stroke-linecap="round"/>
-          <path d="M16 6h16" stroke-linecap="round"/>
-          <circle cx="22" cy="32" r="2" fill="currentColor" opacity="0.5"/>
-          <circle cx="28" cy="34" r="1.5" fill="currentColor" opacity="0.3"/>
-          <circle cx="25" cy="29" r="1" fill="currentColor" opacity="0.4"/>
-        </svg>
-      </div>
       <h3>Reaction Engineering</h3>
-      <p>CSTR, PFR, batch systems. Kinetics modeling, yield optimization, scale-up.</p>
+      <p>Designing and modeling reactors. Figuring out why your yield is 60% and not 90%.</p>
       <div class="skill-tags">
         <span>Kinetics</span><span>Catalysis</span><span>Scale-up</span>
       </div>
     </div>
 
     <div class="skill-card reveal" data-tilt>
-      <div class="skill-icon chem-icon">
-        <svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="8" y="12" width="32" height="28" rx="2"/>
-          <path d="M8 20h32"/>
-          <path d="M20 12V8h8v4"/>
-          <path d="M16 28h4v6h-4zM22 26h4v8h-4zM28 24h4v10h-4z"/>
-        </svg>
-      </div>
       <h3>Process Simulation</h3>
-      <p>Flowsheet modeling, mass & energy balances, steady-state and dynamic simulation.</p>
+      <p>Building digital twins of chemical plants. Breaking things in simulation so they don't break in real life.</p>
       <div class="skill-tags">
-        <span>Aspen</span><span>MATLAB</span><span>Modeling</span>
+        <span>Aspen</span><span>MATLAB</span><span>Python</span>
       </div>
     </div>
 
     <div class="skill-card reveal" data-tilt>
-      <div class="skill-icon cs-icon">
-        <svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M14 16l-6 8 6 8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M34 16l6 8-6 8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M28 10l-8 28" stroke-linecap="round"/>
-        </svg>
-      </div>
       <h3>Software Development</h3>
-      <p>Full-stack applications, APIs, CLI tools. Building things that work and scale.</p>
+      <p>Writing tools that people actually use. APIs, web apps, CLI tools — whatever gets the job done.</p>
       <div class="skill-tags">
-        <span>Python</span><span>Web</span><span>DevOps</span>
+        <span>Python</span><span>Web</span><span>Linux</span>
       </div>
     </div>
 
     <div class="skill-card reveal" data-tilt>
-      <div class="skill-icon cs-icon">
-        <svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="24" cy="24" r="16"/>
-          <path d="M12 24h24M24 12v24"/>
-          <path d="M14 14l4 4M30 14l-4 4M14 34l4-4M30 34l-4-4"/>
-          <circle cx="24" cy="24" r="4" fill="currentColor" opacity="0.2"/>
-        </svg>
-      </div>
       <h3>Scientific Computing</h3>
-      <p>Numerical methods, optimization, machine learning for scientific problems.</p>
+      <p>Numerical methods, optimization algorithms. Making computers solve differential equations so I don't have to.</p>
       <div class="skill-tags">
-        <span>NumPy</span><span>SciPy</span><span>ML</span>
+        <span>NumPy</span><span>SciPy</span><span>Julia</span>
       </div>
     </div>
 
     <div class="skill-card reveal" data-tilt>
-      <div class="skill-icon chem-icon">
-        <svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M10 38V18l14-8 14 8v20l-14 8-14-8z"/>
-          <path d="M10 18l14 8 14-8"/>
-          <path d="M24 26v20"/>
-        </svg>
-      </div>
-      <h3>Pharmaceutical Engineering</h3>
-      <p>GMP process development. Where precision isn't optional — it's the product.</p>
+      <h3>Pharma Engineering</h3>
+      <p>GMP process development. The part of engineering where "good enough" doesn't exist.</p>
       <div class="skill-tags">
         <span>GMP</span><span>QbD</span><span>Validation</span>
       </div>
     </div>
 
     <div class="skill-card reveal" data-tilt>
-      <div class="skill-icon cs-icon">
-        <svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M8 36l8-8 6 4 8-12 10 6"/>
-          <circle cx="8" cy="36" r="2" fill="currentColor"/>
-          <circle cx="16" cy="28" r="2" fill="currentColor"/>
-          <circle cx="22" cy="32" r="2" fill="currentColor"/>
-          <circle cx="30" cy="20" r="2" fill="currentColor"/>
-          <circle cx="40" cy="26" r="2" fill="currentColor"/>
-        </svg>
-      </div>
-      <h3>Data Engineering</h3>
-      <p>Pipelines, ETL, visualization. Transforming raw signals into clear stories.</p>
+      <h3>Data Pipelines</h3>
+      <p>Getting data from point A to point B without losing your mind or your decimal places.</p>
       <div class="skill-tags">
-        <span>Pandas</span><span>SQL</span><span>Viz</span>
+        <span>ETL</span><span>SQL</span><span>Pandas</span>
       </div>
     </div>
   </div>
@@ -249,27 +172,16 @@
 <!-- ===== CONNECT ===== -->
 <section class="connect-section reveal" id="connect">
   <div class="connect-content">
-    <h2 class="connect-title scramble" data-text="Let's build something.">Let's build something.</h2>
-    <p class="connect-sub">Whether it's optimizing a process or shipping a product — I'm always up for an interesting challenge.</p>
+    <h2 class="connect-title">Find me elsewhere</h2>
     <div class="connect-links">
       <a href="https://github.com/remcomarien" target="_blank" rel="noopener" class="connect-link magnetic" data-strength="15">
-        <div class="link-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        </div>
-        <div class="link-text">
-          <strong>GitHub</strong>
-          <span>See what I'm building</span>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <strong>GitHub</strong>
         <span class="link-arrow">&#8599;</span>
       </a>
       <a href="https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/" target="_blank" rel="noopener" class="connect-link magnetic" data-strength="15">
-        <div class="link-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-        </div>
-        <div class="link-text">
-          <strong>LinkedIn</strong>
-          <span>Connect professionally</span>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        <strong>LinkedIn</strong>
         <span class="link-arrow">&#8599;</span>
       </a>
     </div>

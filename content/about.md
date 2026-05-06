@@ -2,36 +2,34 @@
 title: "About"
 layout: "single"
 url: "/about/"
-summary: "About Remco Marien"
-showToc: false
 ---
 
-## The short version
+## Hey
 
-I'm Remco Marien — a chemical & pharmaceutical engineer who writes code. Or a software developer who understands thermodynamics. Depends on who's asking.
+I'm Remco. I studied chemical & pharmaceutical engineering at university — reactors, thermodynamics, separations, the works. Graduated, and then spent way too much time being frustrated by slow manual processes and clunky tooling.
 
-### Background
+So I taught myself to code.
 
-My training is in **Chemical & Pharmaceutical Engineering**, where I learned to think in systems: mass balances, energy flows, reaction kinetics, and the art of turning raw materials into valuable products at scale.
+### What that means in practice
 
-But somewhere along the way, I realized that the most powerful reactor I had access to was sitting on my desk. A computer. And so I started building.
+I'm not a "full-stack developer" or a "chemical engineer" in the traditional sense. I'm somewhere in between. The problems I find interesting are the ones that need both: understanding what's happening physically/chemically AND being able to build the software to solve it.
 
-### What drives me
+Some things I've worked on or am interested in:
 
-The problems I find most interesting live in the overlap:
+- Automating lab workflows that used to take hours
+- Process simulation and optimization
+- Making sense of messy experimental data
+- Building internal tools for engineering teams
+- Anything that removes tedious manual work
 
-- **How do you optimize a distillation column?** Write an algorithm.
-- **How do you make sense of 10,000 sensor readings?** Build a data pipeline.
-- **How do you scale a batch process?** Model it, simulate it, then engineer it.
+### On the code side
 
-I don't see chemistry and code as separate disciplines. They're both about understanding systems, finding patterns, and designing elegant solutions to complex problems.
+Mostly Python, some web stuff, some data engineering. I'm not religious about languages or frameworks — I use whatever fits. I care more about whether something works well and is maintainable than whether it uses the latest shiny tech.
 
-### The toolkit
+### On the engineering side
 
-On the engineering side: reaction engineering, separation processes, process simulation, GMP environments, and scale-up methodology.
-
-On the code side: Python, data analysis, scientific computing, web development, and building tools that make engineers' lives easier.
+Reaction engineering, process design, pharmaceutical manufacturing (GMP). I know what a CSTR is, I can read a PFD, and I know why your crystallization keeps failing.
 
 ---
 
-Want to work together or just chat? Find me on [LinkedIn](https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/) or check out my work on [GitHub](https://github.com/remcomarien).
+Want to chat? [LinkedIn](https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/) is probably the easiest.

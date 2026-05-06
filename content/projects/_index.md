@@ -2,25 +2,10 @@
 title: "Projects"
 layout: "single"
 url: "/projects/"
-summary: "Projects"
-showToc: false
 ---
 
 ## Projects
 
-Work at the intersection of engineering and software. More coming soon.
+Coming soon. I'm working on a few things right now — will share them here when they're ready to show.
 
----
-
-### Coming up
-
-Things I'm working on and exploring:
-
-- **Process Optimization** — Algorithms that make chemical processes smarter and more efficient
-- **Scientific Computing** — Numerical simulations, CFD, and computational modeling
-- **Lab Automation** — Software tools that streamline experimental workflows
-- **Data Engineering** — Turning raw measurement data into actionable insights
-
----
-
-*Check back soon, or follow me on [GitHub](https://github.com/remcomarien) to see what I'm building.*
+In the meantime, you can check [GitHub](https://github.com/remcomarien) for whatever I'm tinkering with.
