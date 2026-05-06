@@ -2,27 +2,25 @@
 title: "Projects"
 layout: "single"
 url: "/projects/"
-summary: "Projecten"
+summary: "Projects"
 showToc: false
 ---
 
-## Projecten
+## Projects
 
-Hier vind je een overzicht van projecten op het snijvlak van engineering en software.
-
----
-
-### Reactor Design meets Code
-
-> *"Een goed ontworpen reactor is als een goed geschreven programma — efficiënt, voorspelbaar, en schaalbaar."*
-
-Projecten komen binnenkort. Stay tuned voor werk rond:
-
-- **Procesoptimalisatie** — Algoritmen die chemische processen slimmer maken
-- **Computational Fluid Dynamics** — Simulaties die stroming en menging visualiseren
-- **Lab Automation** — Software die het labwerk stroomlijnt
-- **Data Pipelines** — Van ruwe meetdata naar bruikbare inzichten
+Work at the intersection of engineering and software. More coming soon.
 
 ---
 
-*Deze pagina wordt binnenkort uitgebreid met specifieke projecten.*
+### Coming up
+
+Things I'm working on and exploring:
+
+- **Process Optimization** — Algorithms that make chemical processes smarter and more efficient
+- **Scientific Computing** — Numerical simulations, CFD, and computational modeling
+- **Lab Automation** — Software tools that streamline experimental workflows
+- **Data Engineering** — Turning raw measurement data into actionable insights
+
+---
+
+*Check back soon, or follow me on [GitHub](https://github.com/remcomarien) to see what I'm building.*

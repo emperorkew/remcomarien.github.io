@@ -2,31 +2,36 @@
 title: "About"
 layout: "single"
 url: "/about/"
-summary: "Over Remco Marien"
+summary: "About Remco Marien"
 showToc: false
 ---
 
-## Over mij
+## The short version
 
-Ik ben Remco Marien — een kruising tussen een reactordesigner en een software engineer. Mijn achtergrond in **Chemical & Pharmaceutical Engineering** gecombineerd met een passie voor **Computer Science** zorgt ervoor dat ik problemen aanpak met zowel een wetenschappelijke als een computationele blik.
+I'm Remco Marien — a chemical & pharmaceutical engineer who writes code. Or a software developer who understands thermodynamics. Depends on who's asking.
 
-### Waar ik mij mee bezighoud
+### Background
 
-- **Process Engineering** — Van reactorkinetiek tot scheidingsprocessen, het optimaliseren van chemische systemen.
-- **Data & Simulatie** — Computational modelling, numerieke methoden en processsimulatie.
-- **Software Development** — Van scripts voor data-analyse tot volledige applicaties.
-- **Automatisering** — Het bruggen van de kloof tussen lab/plant en digitale systemen.
+My training is in **Chemical & Pharmaceutical Engineering**, where I learned to think in systems: mass balances, energy flows, reaction kinetics, and the art of turning raw materials into valuable products at scale.
 
-### De kruising
+But somewhere along the way, I realized that the most powerful reactor I had access to was sitting on my desk. A computer. And so I started building.
 
-Net zoals een katalysator een reactie versnelt zonder zelf verbruikt te worden, gebruik ik software als katalysator voor engineering-uitdagingen:
+### What drives me
 
-```
-Probleem + Computatie → Oplossing (versneld)
-```
+The problems I find most interesting live in the overlap:
 
-Of je het nu bekijkt als een chemische vergelijking of als een algoritme — het draait altijd om het vinden van de optimale route van input naar output.
+- **How do you optimize a distillation column?** Write an algorithm.
+- **How do you make sense of 10,000 sensor readings?** Build a data pipeline.
+- **How do you scale a batch process?** Model it, simulate it, then engineer it.
+
+I don't see chemistry and code as separate disciplines. They're both about understanding systems, finding patterns, and designing elegant solutions to complex problems.
+
+### The toolkit
+
+On the engineering side: reaction engineering, separation processes, process simulation, GMP environments, and scale-up methodology.
+
+On the code side: Python, data analysis, scientific computing, web development, and building tools that make engineers' lives easier.
 
 ---
 
-Neem gerust contact op via [LinkedIn](https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/) of bekijk mijn werk op [GitHub](https://github.com/remcomarien).
+Want to work together or just chat? Find me on [LinkedIn](https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/) or check out my work on [GitHub](https://github.com/remcomarien).
