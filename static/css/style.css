@@ -384,14 +384,14 @@ html.theme-transitioning .arch-panel {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(transparent 50%, rgba(0,0,0,0.02) 50%);
+  background: linear-gradient(transparent 50%, rgba(0,0,0,0.015) 50%);
   background-size: 100% 4px;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.4;
+  opacity: 0.3;
   mix-blend-mode: multiply;
 }
-[data-theme="dark"] .hero::after { opacity: 0.15; }
+[data-theme="dark"] .hero::after { opacity: 0.12; }
 
 .hero-bg {
   position: absolute;
@@ -825,7 +825,8 @@ html.theme-transitioning .arch-panel {
 .pid-motor { fill: var(--pid-fill); stroke: var(--pid-line); stroke-width: 1.2; }
 .pid-motor-text { font-family: var(--mono); font-size: 7px; fill: var(--pid-line); text-anchor: middle; font-weight: 700; }
 /* Drawing border & area */
-.pid-border { fill: none; stroke: var(--pid-line); stroke-width: 1.5; opacity: 0.2; }
+.pid-border { fill: none; stroke: var(--pid-line); stroke-width: 1.5; opacity: 0.15; }
+[data-theme="light"] .pid-border { opacity: 0.1; }
 .pid-area-label { font-family: var(--mono); font-size: 11px; fill: var(--pid-line); font-weight: 700; opacity: 0.35; letter-spacing: 1px; }
 
 /* Reactor liquid fill */
@@ -929,14 +930,18 @@ html.theme-transitioning .arch-panel {
 }
 .hero-text {
   max-width: 440px;
-  background: color-mix(in srgb, var(--bg) 94%, transparent);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
   border: 1px solid var(--border-2);
   border-radius: 4px;
   padding: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.03);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.05);
+}
+[data-theme="light"] .hero-text {
+  background: color-mix(in srgb, var(--bg) 98%, transparent);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.08);
 }
 
 /* HMI window title bar — now uses real markup instead of ::before */
@@ -969,6 +974,8 @@ html.theme-transitioning .arch-panel {
   color: var(--text-3);
   opacity: 0.7;
 }
+[data-theme="light"] .hmi-titlebar { color: var(--text-2); }
+[data-theme="light"] .hmi-clock { opacity: 0.85; }
 
 /* HMI Boot Sequence */
 .hero-text.booting .hero-title,
@@ -1105,6 +1112,7 @@ html.theme-transitioning .arch-panel {
   background: #22c55e;
   animation: led-pulse 2s ease infinite;
   flex-shrink: 0;
+  box-shadow: 0 0 4px rgba(34,197,94,0.4);
 }
 .statusbar-label {
   font-family: var(--mono);
@@ -2562,6 +2570,8 @@ html.theme-transitioning .arch-panel {
   box-shadow: 0 0 6px var(--accent-glow);
 }
 .section-dot.active span { opacity: 1; color: var(--accent); transform: translateX(0); }
+[data-theme="light"] .section-dot::after { opacity: 0.3; }
+[data-theme="light"] .section-dot.active::after { opacity: 1; }
 
 @media (max-width: 1200px) { .section-dots { right: 0.5rem; } .section-dot span { display: none; } }
 @media (max-width: 768px) { .section-dots { display: none; } }
@@ -3191,9 +3201,9 @@ body:not(.home) .section-dots { display: none; }
   .hero-content { padding-bottom: 1rem; padding-top: 0; }
   .hero-title { font-size: 1.4rem; letter-spacing: -0.5px; }
   .hero-text { max-width: 100%; }
-  .hero-sub { font-size: 0.82rem; }
-  .hero-statusbar { flex-wrap: wrap; }
-  .statusbar-item { flex: 1 1 auto; min-width: 0; }
+  .hero-sub { font-size: 0.78rem; }
+  .hero-statusbar { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .statusbar-item { flex: 0 0 auto; min-width: 0; }
   .statusbar-comm { flex: 0 0 auto; }
   .pipe-divider { height: 24px; }
   .section-header h2 { font-size: 1.1rem; flex-wrap: wrap; }
