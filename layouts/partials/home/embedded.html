@@ -103,20 +103,20 @@
         <span class="code-dot code-dot-green"></span>
         <span class="code-filename">sensor_loop.c</span>
       </div>
-      <pre class="code-body"><code><span class="c-kw">void</span> <span class="c-fn">sensor_read_loop</span>(<span class="c-kw">void</span>) {
-  <span class="c-type">float</span> temp = pt100_read(ADC_CH1);
-  <span class="c-type">float</span> pres = transducer_read(ADC_CH2);
-
-  <span class="c-cmt">// Apply 1st-order digital filter</span>
-  temp = alpha * temp + (<span class="c-num">1.0f</span> - alpha) * prev_t;
-  prev_t = temp;
-
-  <span class="c-cmt">// Write to MODBUS holding registers</span>
-  mb_regs[<span class="c-num">0</span>] = float_to_u16(temp);
-  mb_regs[<span class="c-num">1</span>] = float_to_u16(pres);
-
-  <span class="c-fn">HAL_GPIO_TogglePin</span>(LED_PORT, LED_PIN);
-}</code></pre>
+      <pre class="code-body"><code><span class="code-line"><span class="c-kw">void</span> <span class="c-fn">sensor_read_loop</span>(<span class="c-kw">void</span>) {</span>
+<span class="code-line">  <span class="c-type">float</span> temp = pt100_read(ADC_CH1);</span>
+<span class="code-line">  <span class="c-type">float</span> pres = transducer_read(ADC_CH2);</span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="c-cmt">// Apply 1st-order digital filter</span></span>
+<span class="code-line">  temp = alpha * temp + (<span class="c-num">1.0f</span> - alpha) * prev_t;</span>
+<span class="code-line">  prev_t = temp;</span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="c-cmt">// Write to MODBUS holding registers</span></span>
+<span class="code-line">  mb_regs[<span class="c-num">0</span>] = float_to_u16(temp);</span>
+<span class="code-line">  mb_regs[<span class="c-num">1</span>] = float_to_u16(pres);</span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="c-fn">HAL_GPIO_TogglePin</span>(LED_PORT, LED_PIN);</span>
+<span class="code-line">}</span></code></pre>
     </div>
 
     <!-- Live MODBUS frame visualization -->

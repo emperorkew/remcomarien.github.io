@@ -592,8 +592,12 @@
     const popupLive = document.getElementById('pid-popup-live');
     const popupFlow = document.getElementById('pid-popup-flow');
     const popupStatus = document.getElementById('pid-popup-status');
+    const popupPrev = document.getElementById('pid-popup-prev');
+    const popupNext = document.getElementById('pid-popup-next');
     const clickHint = document.getElementById('pid-click-hint');
     let liveInterval = null;
+    let currentTag = null;
+    const allTags = Object.keys(pidData);
 
     // Process flow chain
     const flowChain = ['V-101','P-101','E-101','R-101','E-102','CR-101','CF-101','D-101'];
@@ -648,6 +652,14 @@
       const data = pidData[tag];
       if (!data) return;
 
+      // Track current, highlight on P&ID
+      currentTag = tag;
+      document.querySelectorAll('.pid-clickable.pid-selected').forEach(function(el) {
+        el.classList.remove('pid-selected');
+      });
+      var selectedEl = document.querySelector('[data-pid="' + tag + '"]');
+      if (selectedEl) selectedEl.classList.add('pid-selected');
+
       // Hide hint, stop previous live interval
       hint.classList.remove('visible');
       if (liveInterval) clearInterval(liveInterval);
@@ -668,9 +680,17 @@
         popupFlow.innerHTML = flowChain.map(function(eq, i) {
           var cls = eq === activeEquip ? 'pid-flow-step active' : 'pid-flow-step';
           var arrow = i < flowChain.length - 1 ? '<span class="pid-flow-arrow">\u2192</span>' : '';
-          return '<span class="' + cls + '">' + eq + '</span>' + arrow;
+          return '<span class="' + cls + '" data-nav="' + eq + '">' + eq + '</span>' + arrow;
         }).join('');
         popupFlow.style.display = '';
+        // Click to navigate
+        popupFlow.querySelectorAll('.pid-flow-step:not(.active)').forEach(function(step) {
+          step.addEventListener('click', function() {
+            var navTag = step.getAttribute('data-nav');
+            var el = document.querySelector('[data-pid="' + navTag + '"]');
+            if (el) showPopup(navTag, el.getBoundingClientRect());
+          });
+        });
       } else {
         popupFlow.style.display = 'none';
       }
@@ -732,6 +752,21 @@
     function hidePopup() {
       popup.classList.remove('active');
       if (liveInterval) { clearInterval(liveInterval); liveInterval = null; }
+      currentTag = null;
+      document.querySelectorAll('.pid-clickable.pid-selected').forEach(function(el) {
+        el.classList.remove('pid-selected');
+      });
+    }
+
+    function navigatePopup(dir) {
+      if (!currentTag) return;
+      var idx = allTags.indexOf(currentTag);
+      if (idx < 0) return;
+      idx = (idx + dir + allTags.length) % allTags.length;
+      var nextTag = allTags[idx];
+      var el = document.querySelector('[data-pid="' + nextTag + '"]');
+      var rect = el ? el.getBoundingClientRect() : { left: 400, top: 200, width: 40, height: 40, bottom: 240 };
+      showPopup(nextTag, rect);
     }
 
     document.querySelectorAll('.pid-clickable').forEach(function(el) {
@@ -763,6 +798,9 @@
       e.stopPropagation();
       hidePopup();
     });
+    if (popupPrev) popupPrev.addEventListener('click', function(e) { e.stopPropagation(); navigatePopup(-1); });
+    if (popupNext) popupNext.addEventListener('click', function(e) { e.stopPropagation(); navigatePopup(1); });
+
     document.addEventListener('click', function(e) {
       if (popup.classList.contains('active') && !popup.contains(e.target) && !e.target.closest('.pid-clickable')) {
         hidePopup();
@@ -770,6 +808,9 @@
     });
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') hidePopup();
+      if (!popup.classList.contains('active')) return;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); navigatePopup(-1); }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); navigatePopup(1); }
     });
   }
 
