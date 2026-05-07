@@ -159,11 +159,12 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(90deg, var(--highlight), var(--accent));
   transform-origin: left;
   transform: scaleX(0);
   z-index: 1000;
+  box-shadow: 0 0 8px var(--accent-glow);
 }
 
 /* === Reveal === */
@@ -319,7 +320,7 @@ body {
    HERO
    ============================ */
 .hero {
-  min-height: 85vh;
+  min-height: 80vh;
   display: flex;
   align-items: flex-end;
   position: relative;
@@ -778,7 +779,7 @@ body {
 /* ============================
    NARRATIVE
    ============================ */
-.narrative { padding: 4rem 0 2rem; }
+.narrative { padding: 4rem 0 3rem; }
 
 .narrative-track {
   display: flex;
@@ -795,7 +796,7 @@ body {
   top: 40px;
   bottom: 40px;
   width: 1.5px;
-  background: linear-gradient(to bottom, var(--accent), var(--highlight));
+  background: linear-gradient(to bottom, transparent 0%, var(--accent) 10%, var(--highlight) 90%, transparent 100%);
   opacity: 0.3;
 }
 
@@ -1164,7 +1165,7 @@ body {
 /* ============================
    EXPERTISE
    ============================ */
-.expertise-section { padding: 3.5rem 0 4rem; }
+.expertise-section { padding: 4rem 0; }
 
 .expertise-split {
   display: grid;
@@ -1601,7 +1602,7 @@ body {
 /* ============================
    CONNECT
    ============================ */
-.connect-section { padding: 4rem 0 6rem; }
+.connect-section { padding: 4rem 0 5rem; }
 
 .connect-panel {
   background: var(--bg-alt);
@@ -1633,11 +1634,11 @@ body {
   margin-bottom: 0;
 }
 
-.connect-links { display: flex; gap: 0.75rem; flex-direction: column; }
+.connect-links { display: flex; gap: 0.75rem; }
 
 @media (max-width: 768px) {
   .connect-body { grid-template-columns: 1fr; gap: 1.25rem; }
-  .connect-links { flex-direction: row; }
+  .connect-links { flex-direction: column; }
 }
 
 .connect-link {
@@ -2258,7 +2259,6 @@ body {
   .demo-controls { border-right: none; border-bottom: 1px solid var(--border); order: 2; }
   .demo-output { order: 1; }
   .demo-result { grid-template-columns: 1fr 1fr 1fr; }
-
   .expertise-split { grid-template-columns: 1fr; }
   .expertise-divider { display: none; }
   .embedded-grid { grid-template-columns: 1fr; }
@@ -2272,8 +2272,8 @@ body {
   .hero-text { max-width: 100%; }
   .hero-sub { font-size: 0.82rem; }
   .hero-statusbar { flex-wrap: wrap; }
-  .statusbar-item { flex: 1 1 40%; min-width: 0; }
-  .statusbar-comm { flex: 0 1 auto; }
+  .statusbar-item { flex: 1 1 auto; min-width: 0; }
+  .statusbar-comm { flex: 0 0 auto; }
   .pipe-divider { height: 24px; }
   .section-header h2 { font-size: 1.1rem; flex-wrap: wrap; }
   .section-header h2::before { font-size: 0.55rem; }

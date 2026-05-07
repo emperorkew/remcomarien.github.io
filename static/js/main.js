@@ -375,7 +375,14 @@
     updateDemo();
 
     if (toggle) {
-      toggle.addEventListener('click', () => setTimeout(updateDemo, 50));
+      toggle.addEventListener('click', () => {
+        reactionCanvas.style.transition = 'opacity 0.2s';
+        reactionCanvas.style.opacity = '0';
+        setTimeout(() => {
+          updateDemo();
+          reactionCanvas.style.opacity = '1';
+        }, 200);
+      });
     }
   }
 
