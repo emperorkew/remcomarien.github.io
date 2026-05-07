@@ -216,7 +216,15 @@
 
       const vals = [addr, func, regH, regL, cntH, cntL, crcH, crcL];
       els.forEach((el, i) => {
-        if (el) el.textContent = vals[i];
+        if (el && el.textContent !== vals[i]) {
+          el.textContent = vals[i];
+          el.style.transition = 'none';
+          el.style.color = 'var(--accent)';
+          requestAnimationFrame(() => {
+            el.style.transition = 'color 1.5s';
+            el.style.color = '';
+          });
+        }
       });
     }
 
@@ -581,12 +589,57 @@
     hint.className = 'pid-hint';
     document.body.appendChild(hint);
 
+    const popupLive = document.getElementById('pid-popup-live');
+    const popupStatus = document.getElementById('pid-popup-status');
+    let liveInterval = null;
+
+    // Live process values per equipment
+    const liveData = {
+      'V-101': [
+        { label: 'Level', unit: '%', base: 62, range: 5 },
+        { label: 'Temp', unit: 'K', base: 295, range: 2 },
+      ],
+      'P-101': [
+        { label: 'Flow', unit: 'm\u00B3/h', base: 2.5, range: 0.3 },
+        { label: 'dP', unit: 'bar', base: 1.2, range: 0.15 },
+        { label: 'Amps', unit: 'A', base: 3.8, range: 0.4 },
+      ],
+      'R-101': [
+        { label: 'Temp', unit: 'K', base: 342.7, range: 1.5 },
+        { label: 'Press', unit: 'barg', base: 1.1, range: 0.1 },
+        { label: 'RPM', unit: '', base: 180, range: 3 },
+      ],
+      'E-101': [
+        { label: 'Tin', unit: 'K', base: 295, range: 1 },
+        { label: 'Tout', unit: 'K', base: 338, range: 2 },
+      ],
+      'E-102': [
+        { label: 'Tin', unit: 'K', base: 340, range: 2 },
+        { label: 'Tout', unit: 'K', base: 285, range: 1.5 },
+      ],
+      'CR-101': [
+        { label: 'Temp', unit: 'K', base: 278, range: 0.8 },
+        { label: 'Level', unit: '%', base: 74, range: 3 },
+        { label: 'Slurry', unit: 'g/L', base: 145, range: 12 },
+      ],
+      'CF-101': [
+        { label: 'Speed', unit: 'RPM', base: 1200, range: 15 },
+        { label: 'Vibr', unit: 'mm/s', base: 2.1, range: 0.6 },
+      ],
+      'D-101': [
+        { label: 'Vac', unit: 'mbar', base: 50, range: 5 },
+        { label: 'Temp', unit: 'K', base: 313, range: 1.5 },
+        { label: 'LOD', unit: '%', base: 0.3, range: 0.15 },
+      ],
+    };
+
     function showPopup(tag, rect) {
       const data = pidData[tag];
       if (!data) return;
 
-      // Hide hint
+      // Hide hint, stop previous live interval
       hint.classList.remove('visible');
+      if (liveInterval) clearInterval(liveInterval);
 
       popupTag.textContent = tag;
       popupName.textContent = data.name;
@@ -597,6 +650,27 @@
       popupSpecs.innerHTML = data.specs.map(function(s) {
         return '<div class="pid-popup-spec"><span class="pid-popup-spec-label">' + s[0] + '</span><span class="pid-popup-spec-val">' + s[1] + '</span></div>';
       }).join('');
+
+      // Live readout
+      var live = liveData[tag];
+      if (live) {
+        popupLive.classList.add('has-data');
+        popupLive.innerHTML = live.map(function(l, i) {
+          return '<div class="pid-popup-live-item"><span class="pid-popup-live-label">' + l.label + '</span><span class="pid-popup-live-val" id="plv-' + i + '">' + l.base.toFixed(1) + ' ' + l.unit + '</span></div>';
+        }).join('');
+        liveInterval = setInterval(function() {
+          live.forEach(function(l, i) {
+            var el = document.getElementById('plv-' + i);
+            if (el) {
+              var val = l.base + (Math.random() - 0.5) * l.range;
+              el.textContent = val.toFixed(1) + ' ' + l.unit;
+            }
+          });
+        }, 1200);
+      } else {
+        popupLive.classList.remove('has-data');
+        popupLive.innerHTML = '';
+      }
 
       popup.classList.remove('active');
       // Force reflow for re-animation
@@ -630,6 +704,7 @@
 
     function hidePopup() {
       popup.classList.remove('active');
+      if (liveInterval) { clearInterval(liveInterval); liveInterval = null; }
     }
 
     document.querySelectorAll('.pid-clickable').forEach(function(el) {
@@ -685,6 +760,17 @@
       setTimeout(() => card.style.transition = '', 500);
     });
   });
+
+  // === Narrative active step ===
+  const narrativeSteps = document.querySelectorAll('.narrative-step');
+  if (narrativeSteps.length) {
+    const stepObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle('step-active', entry.isIntersecting);
+      });
+    }, { threshold: 0.6 });
+    narrativeSteps.forEach(step => stepObserver.observe(step));
+  }
 
   // === Header hide on scroll ===
   let lastScroll = 0;
