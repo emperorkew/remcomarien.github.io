@@ -986,6 +986,62 @@
     });
   }
 
+  // === ISA-95 Layer Expand ===
+  document.querySelectorAll('.arch-layer[data-arch-detail]').forEach(function(layer) {
+    // Create expand element
+    var expand = document.createElement('div');
+    expand.className = 'arch-expand';
+    expand.textContent = layer.getAttribute('data-arch-detail');
+    layer.appendChild(expand);
+    layer.addEventListener('click', function() {
+      // Close others
+      document.querySelectorAll('.arch-layer.arch-open').forEach(function(other) {
+        if (other !== layer) other.classList.remove('arch-open');
+      });
+      layer.classList.toggle('arch-open');
+    });
+  });
+
+  // === Alarm Log ===
+  var alarmBody = document.getElementById('alarm-log-body');
+  var alarmCount = document.getElementById('alarm-count');
+  if (alarmBody) {
+    var alarmEvents = [
+      { tag: 'TIC-101', msg: 'Reactor temp deviation +0.3K from SP', sev: 'info' },
+      { tag: 'PI-102', msg: 'Pressure stable at 1.12 barg', sev: 'info' },
+      { tag: 'FIC-103', msg: 'Feed flow rate adjusted to 2.48 m\u00B3/h', sev: 'info' },
+      { tag: 'TIC-105', msg: 'Crystallizer cooling ramp active', sev: 'info' },
+      { tag: 'LIC-106', msg: 'Crystallizer level approaching HH (92%)', sev: 'warn' },
+      { tag: 'PIC-107', msg: 'Dryer vacuum fluctuation \u00B13 mbar', sev: 'warn' },
+      { tag: 'AIC-108', msg: 'pH drift detected, auto-dosing active', sev: 'warn' },
+      { tag: 'TIC-101', msg: 'Jacket CW valve opening increased to 78%', sev: 'info' },
+      { tag: 'CF-101', msg: 'Centrifuge vibration within limits', sev: 'info' },
+      { tag: 'R-101', msg: 'Agitator speed verified at 180 RPM', sev: 'info' },
+      { tag: 'E-101', msg: 'Preheater steam trap cycling normally', sev: 'info' },
+      { tag: 'P-101', msg: 'Pump differential pressure nominal', sev: 'info' },
+      { tag: 'TIC-101', msg: 'Reactor temp high alarm (>348K)', sev: 'high' },
+      { tag: 'D-101', msg: 'LOD target reached, drying complete', sev: 'info' },
+      { tag: 'CR-101', msg: 'Nucleation event detected by FBRM', sev: 'warn' },
+    ];
+    var eventCount = 0;
+    function addAlarm() {
+      var ev = alarmEvents[Math.floor(Math.random() * alarmEvents.length)];
+      var now = new Date();
+      var time = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+      var entry = document.createElement('div');
+      entry.className = 'alarm-entry';
+      entry.innerHTML = '<span class="alarm-time">' + time + '</span><span class="alarm-tag">' + ev.tag + '</span><span class="alarm-msg">' + ev.msg + '</span><span class="alarm-sev alarm-sev-' + ev.sev + '">' + ev.sev.toUpperCase() + '</span>';
+      alarmBody.insertBefore(entry, alarmBody.firstChild);
+      eventCount++;
+      if (alarmCount) alarmCount.textContent = eventCount + ' events';
+      // Keep max 20 entries
+      while (alarmBody.children.length > 20) alarmBody.removeChild(alarmBody.lastChild);
+    }
+    // Initial burst
+    for (var a = 0; a < 3; a++) addAlarm();
+    setInterval(addAlarm, 4000 + Math.random() * 3000);
+  }
+
   // === Footer Uptime ===
   const uptimeEl = document.getElementById('footer-uptime');
   if (uptimeEl) {

@@ -10,7 +10,7 @@
     <div class="arch-panel">
       <div class="arch-header">ISA-95 Control Architecture</div>
       <div class="arch-layers">
-        <div class="arch-layer arch-l4">
+        <div class="arch-layer arch-l4" data-arch-detail="SAP, OSIsoft PI, batch genealogy, production scheduling. Where the business meets the plant floor.">
           <span class="arch-label">L4</span>
           <span class="arch-name">Enterprise</span>
           <span class="arch-detail">ERP / MES / Historian</span>
@@ -19,7 +19,7 @@
           <svg width="100%" height="20"><line x1="50%" y1="0" x2="50%" y2="20" stroke="var(--highlight)" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
           <span class="arch-proto">OPC-UA / TCP/IP</span>
         </div>
-        <div class="arch-layer arch-l3">
+        <div class="arch-layer arch-l3" data-arch-detail="DeltaV, PCS7, FactoryTalk. Recipe management (ISA-88), batch execution, trending, alarm management.">
           <span class="arch-label">L3</span>
           <span class="arch-name">Supervisory</span>
           <span class="arch-detail">SCADA / HMI / DCS</span>
@@ -28,7 +28,7 @@
           <svg width="100%" height="20"><line x1="50%" y1="0" x2="50%" y2="20" stroke="var(--highlight)" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
           <span class="arch-proto">MODBUS TCP / Ethernet/IP</span>
         </div>
-        <div class="arch-layer arch-l2">
+        <div class="arch-layer arch-l2" data-arch-detail="PID loops, sequence control, interlocks, safety instrumented systems (SIS). Scan times in milliseconds.">
           <span class="arch-label">L2</span>
           <span class="arch-name">Control</span>
           <span class="arch-detail">PLC / PAC / RTU</span>
@@ -37,7 +37,7 @@
           <svg width="100%" height="20"><line x1="50%" y1="0" x2="50%" y2="20" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
           <span class="arch-proto">4-20mA / HART / PROFIBUS</span>
         </div>
-        <div class="arch-layer arch-l1">
+        <div class="arch-layer arch-l1" data-arch-detail="PT100 RTDs, pressure transmitters, control valves, VFDs. The physical world — where bits become atoms.">
           <span class="arch-label">L1</span>
           <span class="arch-name">Field</span>
           <span class="arch-detail">Sensors / Actuators / Valves</span>
@@ -135,6 +135,17 @@
       <div class="modbus-desc">
         Slave <span class="mb-hl">0x01</span> → Read Holding Registers → Addr <span class="mb-hl">0x0001</span> × <span class="mb-hl">2</span> registers → CRC16
       </div>
+    </div>
+  </div>
+
+  <!-- Live Alarm & Event Log -->
+  <div class="alarm-log reveal">
+    <div class="alarm-log-header">
+      <span class="alarm-log-led"></span>
+      ALARM & EVENT LOG — R-101 AREA
+      <span class="alarm-log-count" id="alarm-count">0 events</span>
+    </div>
+    <div class="alarm-log-body" id="alarm-log-body">
     </div>
   </div>
 </section>
