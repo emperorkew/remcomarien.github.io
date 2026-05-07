@@ -113,6 +113,31 @@
   });
 
 
+  // === HMI Boot Sequence ===
+  const bootOverlay = document.getElementById('hmi-boot');
+  const heroText = document.querySelector('.hero-text');
+  if (bootOverlay && heroText && !sessionStorage.getItem('booted')) {
+    heroText.classList.add('booting');
+    var bootLines = bootOverlay.querySelectorAll('.boot-line');
+    var progressFill = document.getElementById('boot-progress-fill');
+    var totalDelay = 0;
+    bootLines.forEach(function(line, i) {
+      var d = parseInt(line.dataset.delay) || 0;
+      totalDelay = Math.max(totalDelay, d);
+      setTimeout(function() {
+        line.classList.add('visible');
+        if (progressFill) progressFill.style.width = Math.round(((i + 1) / bootLines.length) * 100) + '%';
+      }, d + 100);
+    });
+    setTimeout(function() {
+      bootOverlay.classList.add('done');
+      heroText.classList.remove('booting');
+      sessionStorage.setItem('booted', '1');
+    }, totalDelay + 600);
+  } else if (bootOverlay) {
+    bootOverlay.style.display = 'none';
+  }
+
   // === HMI Clock ===
   const hmiClock = document.getElementById('hmi-clock');
   if (hmiClock) {

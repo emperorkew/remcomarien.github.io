@@ -339,6 +339,11 @@ html.theme-transitioning body *::after {
   padding: 0 2rem;
   position: relative;
   z-index: 1;
+  animation: page-enter 0.5s var(--ease) both;
+}
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ============================
@@ -942,6 +947,57 @@ html.theme-transitioning body *::after {
 .hmi-clock {
   color: var(--text-3);
   opacity: 0.7;
+}
+
+/* HMI Boot Sequence */
+.hero-text.booting .hero-title,
+.hero-text.booting .hero-sub,
+.hero-text.booting .hero-cta,
+.hero-text.booting .hero-statusbar { visibility: hidden; }
+
+.hmi-boot-overlay {
+  position: absolute;
+  inset: 0;
+  top: 28px; /* below titlebar */
+  background: var(--bg);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  font-family: var(--mono);
+  transition: opacity 0.4s;
+}
+.hmi-boot-overlay.done { opacity: 0; pointer-events: none; }
+.boot-line {
+  font-size: 0.6rem;
+  color: var(--highlight);
+  letter-spacing: 0.3px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s;
+  text-align: left;
+  width: 100%;
+}
+.boot-line.visible { opacity: 1; transform: translateY(0); }
+.boot-line.ok::after { content: ' [OK]'; color: #22c55e; font-weight: 700; }
+.boot-line.warn::after { content: ' [WARN]'; color: #f59e0b; font-weight: 700; }
+.boot-progress {
+  width: 100%;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.3rem;
+}
+.boot-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--highlight), var(--accent));
+  border-radius: 2px;
+  transition: width 0.2s;
 }
 
 .hero-title,
@@ -2860,6 +2916,23 @@ body:not(.home) .section-dots { display: none; }
   color: #fff;
   border-bottom-color: var(--accent);
 }
+.error-bar-alarm {
+  animation: alarm-flash 1.5s ease infinite;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+@keyframes alarm-flash {
+  0%, 100% { background: var(--accent); }
+  50% { background: #dc2626; }
+}
+.error-alarm-icon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  animation: led-pulse 0.8s ease infinite;
+}
 
 .error-body {
   padding: 2rem;
@@ -2876,6 +2949,13 @@ body:not(.home) .section-dots { display: none; }
   line-height: 1;
   opacity: 0.3;
   flex-shrink: 0;
+  animation: error-glitch 3s ease infinite;
+}
+@keyframes error-glitch {
+  0%, 95%, 100% { opacity: 0.3; transform: none; }
+  96% { opacity: 0.6; transform: translateX(-2px); }
+  97% { opacity: 0.2; transform: translateX(3px) skewX(-2deg); }
+  98% { opacity: 0.5; transform: translateX(-1px); }
 }
 
 .error-detail h1 {
@@ -2892,11 +2972,28 @@ body:not(.home) .section-dots { display: none; }
   margin-bottom: 1rem;
 }
 
+.error-diagnostics {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+.error-diag-header {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--text-3);
+  background: var(--bg-alt);
+  padding: 0.3rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
 .error-meta {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
-  margin-bottom: 1.25rem;
+  padding: 0.5rem 0.6rem;
 }
 .error-meta span {
   font-family: var(--mono);
@@ -2904,6 +3001,10 @@ body:not(.home) .section-dots { display: none; }
   color: var(--text-3);
   letter-spacing: 0.3px;
 }
+.error-meta strong { color: var(--text-2); }
+.error-status-val { color: var(--accent) !important; }
+.error-severity { color: #dc2626 !important; }
+.error-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
 /* ============================
    PREFERS REDUCED MOTION

@@ -335,6 +335,16 @@
         <span class="hmi-titlebar-left"><span class="hmi-titlebar-dot"></span> PROCESS OVERVIEW — OPERATOR HMI</span>
         <span class="hmi-clock" id="hmi-clock"></span>
       </div>
+      <div class="hmi-boot-overlay" id="hmi-boot">
+        <div class="boot-line" data-delay="0">Initializing DCS interface...</div>
+        <div class="boot-line" data-delay="200">Loading process model R-101</div>
+        <div class="boot-line ok" data-delay="400">Connecting to field instruments</div>
+        <div class="boot-line ok" data-delay="600">MODBUS RTU link established</div>
+        <div class="boot-line ok" data-delay="800">OPC-UA historian connected</div>
+        <div class="boot-line warn" data-delay="1000">Batch record BATCH-2026-0137 loaded</div>
+        <div class="boot-line ok" data-delay="1200">HMI ready</div>
+        <div class="boot-progress"><div class="boot-progress-fill" id="boot-progress-fill"></div></div>
+      </div>
       <h1 class="hero-title">
         <span class="title-line title-line-1">Remco Marien</span>
         <span class="title-line title-line-2">

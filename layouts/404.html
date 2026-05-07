@@ -1,22 +1,43 @@
 {{ define "main" }}
 <div class="page-content page-404">
   <div class="error-panel">
-    <div class="panel-bar">ALARM — EQUIPMENT NOT FOUND</div>
+    <div class="panel-bar error-bar-alarm">
+      <span class="error-alarm-icon"></span>
+      ALARM — EQUIPMENT NOT FOUND
+      <span class="error-alarm-icon"></span>
+    </div>
     <div class="error-body">
       <div class="error-code">404</div>
       <div class="error-detail">
         <h1>Tag not found</h1>
         <p>The requested equipment tag does not exist in this process area. Check the P&ID reference and try again.</p>
-        <div class="error-meta">
-          <span>AREA: UNKNOWN</span>
-          <span>TAG: {{ .RelPermalink }}</span>
-          <span>STATUS: NOT FOUND</span>
+        <div class="error-diagnostics">
+          <div class="error-diag-header">DIAGNOSTICS</div>
+          <div class="error-meta">
+            <span>AREA: <strong>UNKNOWN</strong></span>
+            <span>TAG: <strong>{{ .RelPermalink }}</strong></span>
+            <span>STATUS: <strong class="error-status-val">NOT FOUND</strong></span>
+            <span>SEVERITY: <strong class="error-severity">HIGH</strong></span>
+            <span>TIMESTAMP: <strong id="error-timestamp"></strong></span>
+          </div>
         </div>
-        <a href="{{ "" | relURL }}" class="btn btn-main magnetic" data-strength="25">
-          <span>Return to control room</span>
-        </a>
+        <div class="error-actions">
+          <a href="{{ "" | relURL }}" class="btn btn-main magnetic" data-strength="25">
+            <span>Return to control room</span>
+          </a>
+          <a href="{{ "about/" | relURL }}" class="btn btn-ghost magnetic" data-strength="25">
+            <span>View personnel file</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  var ts = document.getElementById('error-timestamp');
+  if (ts) {
+    var now = new Date();
+    ts.textContent = now.toISOString().replace('T', ' ').substring(0, 19);
+  }
+</script>
 {{ end }}
