@@ -590,8 +590,19 @@
     document.body.appendChild(hint);
 
     const popupLive = document.getElementById('pid-popup-live');
+    const popupFlow = document.getElementById('pid-popup-flow');
     const popupStatus = document.getElementById('pid-popup-status');
+    const clickHint = document.getElementById('pid-click-hint');
     let liveInterval = null;
+
+    // Process flow chain
+    const flowChain = ['V-101','P-101','E-101','R-101','E-102','CR-101','CF-101','D-101'];
+    // Map instruments to their parent equipment
+    const instParent = {
+      'FIC-103': 'P-101', 'TI-104': 'E-101', 'TIC-101': 'R-101',
+      'PI-102': 'R-101', 'AIC-108': 'R-101', 'TIC-105': 'CR-101',
+      'LIC-106': 'CR-101', 'PIC-107': 'D-101'
+    };
 
     // Live process values per equipment
     const liveData = {
@@ -650,6 +661,22 @@
       popupSpecs.innerHTML = data.specs.map(function(s) {
         return '<div class="pid-popup-spec"><span class="pid-popup-spec-label">' + s[0] + '</span><span class="pid-popup-spec-val">' + s[1] + '</span></div>';
       }).join('');
+
+      // Flow position indicator
+      var activeEquip = instParent[tag] || tag;
+      if (flowChain.indexOf(activeEquip) >= 0) {
+        popupFlow.innerHTML = flowChain.map(function(eq, i) {
+          var cls = eq === activeEquip ? 'pid-flow-step active' : 'pid-flow-step';
+          var arrow = i < flowChain.length - 1 ? '<span class="pid-flow-arrow">\u2192</span>' : '';
+          return '<span class="' + cls + '">' + eq + '</span>' + arrow;
+        }).join('');
+        popupFlow.style.display = '';
+      } else {
+        popupFlow.style.display = 'none';
+      }
+
+      // Hide click hint on first interaction
+      if (clickHint) clickHint.classList.add('hidden');
 
       // Live readout
       var live = liveData[tag];
@@ -804,6 +831,18 @@
         hamburger.setAttribute('aria-expanded', 'false');
       });
     });
+  }
+
+  // === Footer Uptime ===
+  const uptimeEl = document.getElementById('footer-uptime');
+  if (uptimeEl) {
+    const startTime = Date.now();
+    setInterval(function() {
+      var secs = Math.floor((Date.now() - startTime) / 1000);
+      var m = Math.floor(secs / 60);
+      var s = secs % 60;
+      uptimeEl.textContent = m + ':' + String(s).padStart(2, '0');
+    }, 1000);
   }
 
   // === Back to Top ===

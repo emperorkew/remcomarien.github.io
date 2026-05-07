@@ -384,6 +384,35 @@ body {
 }
 .pid-hint.visible { opacity: 1; }
 
+/* P&ID click hint */
+.pid-click-hint {
+  position: absolute;
+  bottom: 4.5rem;
+  right: 2rem;
+  z-index: 3;
+  pointer-events: none;
+  animation: fade-in-up 0.7s var(--ease) 1.5s both;
+}
+.pid-click-hint span {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+  opacity: 0.7;
+  animation: pulse-hint 3s ease infinite;
+}
+.pid-click-hint.hidden { opacity: 0; transition: opacity 0.5s; }
+@keyframes pulse-hint {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+@media (max-width: 768px) { .pid-click-hint { display: none; } }
+
 /* Allow clicks through hero-content to P&ID */
 .hero-content { pointer-events: none; }
 .hero-text, .scroll-hint, .pid-popup { pointer-events: auto; }
@@ -493,6 +522,36 @@ body {
   letter-spacing: 0.5px;
   opacity: 0.8;
 }
+/* Process flow position indicator */
+.pid-popup-flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 0.6rem;
+  padding: 0.35rem 0;
+}
+.pid-flow-step {
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  font-weight: 600;
+  color: var(--text-3);
+  padding: 0.15rem 0.3rem;
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.pid-flow-step.active {
+  color: var(--bg);
+  background: var(--accent);
+  font-weight: 700;
+}
+.pid-flow-arrow {
+  font-size: 0.5rem;
+  color: var(--text-3);
+  opacity: 0.4;
+  padding: 0 0.1rem;
+}
+
 .pid-popup-desc {
   font-size: 0.78rem;
   color: var(--text-2);
@@ -1552,8 +1611,11 @@ body {
   color: var(--text-3);
   border-right: 1px solid var(--border);
   letter-spacing: 0.3px;
+  transition: color 0.2s;
 }
 .skill-tags span:last-child { border-right: none; }
+.skill-card-pharma .skill-tags span:hover { color: var(--accent); }
+.skill-card-auto .skill-tags span:hover { color: var(--highlight); }
 
 /* ============================
    EMBEDDED & AUTOMATION
@@ -1600,7 +1662,8 @@ body {
   background: var(--bg);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.arch-layer:hover { border-color: var(--border-2); box-shadow: var(--shadow-sm); }
+.arch-layer { transition: all 0.2s var(--ease); }
+.arch-layer:hover { border-color: var(--highlight); box-shadow: var(--shadow-sm), 0 0 0 2px var(--highlight-soft); transform: translateX(3px); }
 
 .arch-label {
   font-family: var(--mono);
@@ -1975,15 +2038,25 @@ body {
 .footer-inner {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.4rem;
   align-items: center;
   max-width: var(--max-w);
   margin: 0 auto;
   border: 1px solid var(--border);
-  border-top: 2px solid var(--pid-line);
   border-radius: 3px;
-  padding: 1.25rem 2rem;
+  padding: 1.5rem 2rem;
   background: var(--bg-alt);
+  position: relative;
+  overflow: hidden;
+}
+.footer-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--highlight));
 }
 .footer-molecule { font-family: var(--mono); font-size: 0.72rem; color: var(--text-3); display: flex; align-items: baseline; gap: 0.15rem; }
 .footer-molecule sub { font-size: 0.6rem; }
