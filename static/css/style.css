@@ -2398,6 +2398,7 @@ html.theme-transitioning body *::after {
 
 @media (max-width: 1200px) { .section-dots { right: 0.5rem; } .section-dot span { display: none; } }
 @media (max-width: 768px) { .section-dots { display: none; } }
+body:not(.home) .section-dots { display: none; }
 
 /* === Back to Top === */
 .back-to-top {
@@ -2426,7 +2427,8 @@ html.theme-transitioning body *::after {
 /* ============================
    ABOUT PAGE
    ============================ */
-.page-about .page-header { border-bottom: none; padding-bottom: 0; }
+.page-about .page-header { border-bottom: none; padding-bottom: 0.75rem; }
+.page-about .page-header::after { background: linear-gradient(90deg, var(--accent), var(--highlight)); width: 100px; }
 
 .page-tag {
   font-family: var(--mono);
@@ -2449,6 +2451,28 @@ html.theme-transitioning body *::after {
   color: var(--text-3);
   margin-top: 0.25rem;
 }
+.page-header-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--text-3);
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.65rem;
+  border-radius: 3px;
+  width: fit-content;
+  letter-spacing: 0.3px;
+}
+.page-header-rev {
+  margin-left: auto;
+  color: var(--highlight);
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--border);
+}
 
 .about-dual {
   display: grid;
@@ -2463,9 +2487,14 @@ html.theme-transitioning body *::after {
   border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
+.about-panel:hover { border-color: var(--border-2); box-shadow: var(--shadow-md); }
 .about-panel-pharma { border-left: 3px solid var(--accent); }
+.about-panel-pharma::before { content: ''; position: absolute; top: 0; left: -3px; right: 0; height: 3px; background: var(--accent); }
 .about-panel-auto { border-left: 3px solid var(--highlight); }
+.about-panel-auto::before { content: ''; position: absolute; top: 0; left: -3px; right: 0; height: 3px; background: var(--highlight); }
 
 /* Bridge connector between dual panels */
 .about-bridge {
@@ -2617,12 +2646,15 @@ html.theme-transitioning body *::after {
   color: var(--accent);
   border: 1px solid var(--accent);
   opacity: 0.85;
+  transition: all 0.2s;
 }
+.tool-tag:hover { opacity: 1; box-shadow: 0 0 6px var(--accent-glow); }
 .tool-tag-teal {
   background: var(--highlight-soft);
   color: var(--highlight);
   border-color: var(--highlight);
 }
+.tool-tag-teal:hover { box-shadow: 0 0 6px var(--highlight-soft); }
 
 .tool-desc {
   font-size: 0.75rem;
@@ -2649,7 +2681,8 @@ html.theme-transitioning body *::after {
 /* ============================
    PROJECTS PAGE
    ============================ */
-.page-projects .page-header { border-bottom: none; padding-bottom: 0; }
+.page-projects .page-header { border-bottom: none; padding-bottom: 0.75rem; }
+.page-projects .page-header::after { background: linear-gradient(90deg, var(--highlight), var(--accent)); width: 100px; }
 
 .projects-group {
   margin-bottom: 2.5rem;
@@ -2693,11 +2726,16 @@ html.theme-transitioning body *::after {
   border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
   position: relative;
   display: flex;
   flex-direction: column;
 }
+.project-card:nth-child(2) { transition-delay: 0.05s; }
+.project-card:nth-child(3) { transition-delay: 0.1s; }
+.project-card:nth-child(4) { transition-delay: 0.15s; }
+.project-card:nth-child(5) { transition-delay: 0.2s; }
+.project-card:nth-child(6) { transition-delay: 0.25s; }
 /* Gradient top-bar like skill-cards */
 .project-card::before {
   content: '';
@@ -2732,10 +2770,13 @@ html.theme-transitioning body *::after {
   font-size: 0.5rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  padding: 0.1rem 0.35rem;
+  padding: 0.12rem 0.4rem;
   border-radius: 2px;
   flex-shrink: 0;
+  transition: box-shadow 0.2s;
 }
+.project-card:hover .domain-pharma { box-shadow: 0 0 6px var(--accent-glow); }
+.project-card:hover .domain-embedded { box-shadow: 0 0 6px var(--highlight-soft); }
 .domain-pharma { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
 .domain-embedded { background: var(--highlight-soft); color: var(--highlight); border: 1px solid var(--highlight); }
 .domain-software { background: var(--bg-code); color: var(--text-3); border: 1px solid var(--border-2); }
