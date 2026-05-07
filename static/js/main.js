@@ -576,9 +576,17 @@
     const popupFact = document.getElementById('pid-popup-fact');
     const popupClose = document.getElementById('pid-popup-close');
 
+    // Hover hint
+    const hint = document.createElement('div');
+    hint.className = 'pid-hint';
+    document.body.appendChild(hint);
+
     function showPopup(tag, rect) {
       const data = pidData[tag];
       if (!data) return;
+
+      // Hide hint
+      hint.classList.remove('visible');
 
       popupTag.textContent = tag;
       popupName.textContent = data.name;
@@ -590,21 +598,34 @@
         return '<div class="pid-popup-spec"><span class="pid-popup-spec-label">' + s[0] + '</span><span class="pid-popup-spec-val">' + s[1] + '</span></div>';
       }).join('');
 
+      popup.classList.remove('active');
+      // Force reflow for re-animation
+      void popup.offsetWidth;
       popup.classList.add('active');
 
-      // Position near the clicked element
-      var heroRect = document.getElementById('hero').getBoundingClientRect();
-      var left = rect.left + rect.width / 2 - 160;
-      var top = rect.bottom + 12;
+      // Position: prefer below-right of element, fallback above
+      var pw = 340;
+      var left = rect.left + rect.width / 2 - pw / 2;
+      var top = rect.bottom + 14;
 
-      // Keep within viewport
+      // Keep within viewport horizontally
       if (left < 16) left = 16;
-      if (left + 320 > window.innerWidth - 16) left = window.innerWidth - 336;
-      if (top + 300 > window.innerHeight) top = rect.top - 320;
+      if (left + pw > window.innerWidth - 16) left = window.innerWidth - pw - 16;
+
+      // If popup would go below viewport, show above
+      requestAnimationFrame(function() {
+        var ph = popup.offsetHeight;
+        if (top + ph > window.innerHeight - 16) {
+          top = rect.top - ph - 14;
+        }
+        // Still off-screen? Clamp to top
+        if (top < 16) top = 16;
+        popup.style.left = left + 'px';
+        popup.style.top = top + 'px';
+      });
 
       popup.style.left = left + 'px';
       popup.style.top = top + 'px';
-      popup.style.position = 'fixed';
     }
 
     function hidePopup() {
@@ -618,11 +639,30 @@
         var rect = el.getBoundingClientRect();
         showPopup(tag, rect);
       });
+
+      // Hover hint
+      el.addEventListener('mouseenter', function(e) {
+        if (popup.classList.contains('active')) return;
+        var tag = el.getAttribute('data-pid');
+        var data = pidData[tag];
+        hint.textContent = tag + (data ? ' \u2014 ' + data.name : '');
+        hint.classList.add('visible');
+      });
+      el.addEventListener('mousemove', function(e) {
+        hint.style.left = (e.clientX + 14) + 'px';
+        hint.style.top = (e.clientY - 8) + 'px';
+      });
+      el.addEventListener('mouseleave', function() {
+        hint.classList.remove('visible');
+      });
     });
 
-    popupClose.addEventListener('click', hidePopup);
+    popupClose.addEventListener('click', function(e) {
+      e.stopPropagation();
+      hidePopup();
+    });
     document.addEventListener('click', function(e) {
-      if (!popup.contains(e.target) && !e.target.closest('.pid-clickable')) {
+      if (popup.classList.contains('active') && !popup.contains(e.target) && !e.target.closest('.pid-clickable')) {
         hidePopup();
       }
     });
