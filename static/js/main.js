@@ -829,6 +829,38 @@
     });
   });
 
+  // === Facts counter animation ===
+  const factsStrip = document.querySelector('.facts-strip');
+  if (factsStrip) {
+    var factsAnimated = false;
+    var factsObs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !factsAnimated) {
+        factsAnimated = true;
+        factsStrip.querySelectorAll('.fact-value').forEach(function(el) {
+          var final = el.textContent;
+          var chars = final.split('');
+          var duration = 600;
+          var start = Date.now();
+          var scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-.';
+          function scramble() {
+            var elapsed = Date.now() - start;
+            var progress = Math.min(elapsed / duration, 1);
+            var revealed = Math.floor(progress * chars.length);
+            var display = chars.map(function(c, i) {
+              if (i < revealed) return c;
+              if (c === ' ' || c === '/') return c;
+              return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+            }).join('');
+            el.textContent = display;
+            if (progress < 1) requestAnimationFrame(scramble);
+          }
+          scramble();
+        });
+      }
+    }, { threshold: 0.5 });
+    factsObs.observe(factsStrip);
+  }
+
   // === Narrative active step ===
   const narrativeSteps = document.querySelectorAll('.narrative-step');
   if (narrativeSteps.length) {
