@@ -895,9 +895,11 @@
     factsObs.observe(factsStrip);
   }
 
-  // === Section nav dots ===
+  // === Section nav dots + header section label ===
   const sectionDots = document.querySelectorAll('.section-dot');
+  const sectionLabel = document.getElementById('nav-section-label');
   const sections = ['hero', 'narrative', 'demo', 'expertise', 'embedded', 'connect'];
+  const sectionNames = { hero: '', narrative: 'SEC-101 Process Description', demo: 'SEC-201 Reaction Kinetics', expertise: 'SEC-301 Equipment List', embedded: 'SEC-401 Automation Layer', connect: 'SEC-501 Connect' };
   if (sectionDots.length) {
     var sectionEls = sections.map(function(id) { return document.getElementById(id); }).filter(Boolean);
     var sectionObs = new IntersectionObserver(function(entries) {
@@ -907,10 +909,36 @@
           sectionDots.forEach(function(dot) {
             dot.classList.toggle('active', dot.getAttribute('data-section') === id);
           });
+          // Update header section label
+          if (sectionLabel) {
+            var name = sectionNames[id] || '';
+            sectionLabel.textContent = name;
+            sectionLabel.classList.toggle('visible', name.length > 0);
+          }
         }
       });
     }, { threshold: 0.3, rootMargin: '-10% 0px -10% 0px' });
     sectionEls.forEach(function(el) { sectionObs.observe(el); });
+  }
+
+  // === Project domain filtering ===
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var projectCards = document.querySelectorAll('.project-card[data-domain]');
+  if (filterBtns.length && projectCards.length) {
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var filter = btn.dataset.filter;
+        filterBtns.forEach(function(b) { b.classList.remove('filter-active'); });
+        btn.classList.add('filter-active');
+        projectCards.forEach(function(card) {
+          if (filter === 'all' || card.dataset.domain === filter) {
+            card.classList.remove('filtered-out');
+          } else {
+            card.classList.add('filtered-out');
+          }
+        });
+      });
+    });
   }
 
   // === Narrative active step ===

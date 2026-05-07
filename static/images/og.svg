@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#121210"/>
+  <rect x="0" y="0" width="1200" height="4" fill="url(#grad)"/>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <!-- Grid -->
+  <g opacity="0.06">
+    <line x1="0" y1="80" x2="1200" y2="80" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="0" y1="160" x2="1200" y2="160" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="0" y1="240" x2="1200" y2="240" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="0" y1="320" x2="1200" y2="320" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="0" y1="400" x2="1200" y2="400" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="0" y1="480" x2="1200" y2="480" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="0" y1="560" x2="1200" y2="560" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="80" y1="0" x2="80" y2="630" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="160" y1="0" x2="160" y2="630" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="240" y1="0" x2="240" y2="630" stroke="#a8a29e" stroke-width="0.5"/>
+    <line x1="320" y1="0" x2="320" y2="630" stroke="#a8a29e" stroke-width="0.5"/>
+  </g>
+  <!-- Name -->
+  <text x="80" y="260" font-family="monospace" font-size="72" font-weight="900" fill="#e7e5e4" letter-spacing="-2">Remco Marien</text>
+  <!-- Subtitle -->
+  <text x="80" y="320" font-family="monospace" font-size="24" fill="#f59e0b" letter-spacing="1">Pharmaceutical Process Engineer</text>
+  <text x="80" y="360" font-family="monospace" font-size="24" fill="#5eead4" letter-spacing="1">Software &amp; Embedded Systems</text>
+  <!-- Tags -->
+  <rect x="80" y="400" width="60" height="28" rx="4" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.6"/>
+  <text x="110" y="419" font-family="monospace" font-size="12" fill="#f59e0b" text-anchor="middle" font-weight="600">GMP</text>
+  <rect x="155" y="400" width="55" height="28" rx="4" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.6"/>
+  <text x="182" y="419" font-family="monospace" font-size="12" fill="#f59e0b" text-anchor="middle" font-weight="600">PAT</text>
+  <rect x="225" y="400" width="60" height="28" rx="4" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.6"/>
+  <text x="255" y="419" font-family="monospace" font-size="12" fill="#f59e0b" text-anchor="middle" font-weight="600">MPC</text>
+  <rect x="300" y="400" width="35" height="28" rx="4" fill="none" stroke="#5eead4" stroke-width="1.5" opacity="0.6"/>
+  <text x="317" y="419" font-family="monospace" font-size="12" fill="#5eead4" text-anchor="middle" font-weight="600">C</text>
+  <rect x="350" y="400" width="55" height="28" rx="4" fill="none" stroke="#5eead4" stroke-width="1.5" opacity="0.6"/>
+  <text x="377" y="419" font-family="monospace" font-size="12" fill="#5eead4" text-anchor="middle" font-weight="600">Rust</text>
+  <rect x="420" y="400" width="75" height="28" rx="4" fill="none" stroke="#5eead4" stroke-width="1.5" opacity="0.6"/>
+  <text x="457" y="419" font-family="monospace" font-size="12" fill="#5eead4" text-anchor="middle" font-weight="600">Python</text>
+  <!-- Mini reactor -->
+  <g transform="translate(900, 200)" opacity="0.15">
+    <rect x="-60" y="-80" width="120" height="180" rx="8" fill="none" stroke="#a8a29e" stroke-width="3"/>
+    <ellipse cx="0" cy="-80" rx="60" ry="12" fill="none" stroke="#a8a29e" stroke-width="2.5"/>
+    <line x1="0" y1="-95" x2="0" y2="-20" stroke="#a8a29e" stroke-width="2.5"/>
+    <line x1="-30" y1="-20" x2="30" y2="-20" stroke="#a8a29e" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="-25" y1="15" x2="25" y2="15" stroke="#a8a29e" stroke-width="3" stroke-linecap="round"/>
+    <rect x="-50" y="10" width="100" height="60" rx="4" fill="#5eead4" opacity="0.15"/>
+  </g>
+  <!-- Logo -->
+  <text x="80" y="570" font-family="monospace" font-size="16" fill="#6b6560">&lt;RM/&gt;</text>
+  <text x="1120" y="570" font-family="monospace" font-size="14" fill="#6b6560" text-anchor="end">emperorkew.github.io</text>
+</svg>

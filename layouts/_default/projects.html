@@ -13,8 +13,14 @@
 
   <section class="projects-group reveal">
     <h2 data-tag="SEC-602">Planned</h2>
-    <div class="project-cards">
-      <div class="project-card project-planned">
+    <div class="project-filters" id="project-filters">
+      <button class="filter-btn filter-active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="pharma">Pharma</button>
+      <button class="filter-btn" data-filter="embedded">Embedded</button>
+      <button class="filter-btn" data-filter="software">Software</button>
+    </div>
+    <div class="project-cards" id="project-cards">
+      <div class="project-card project-planned" data-domain="pharma">
         <div class="project-card-header">
           <span class="emb-status emb-status-amber"></span>
           <span class="project-name">PAT Data Pipeline</span>
@@ -29,7 +35,7 @@
         </div>
       </div>
 
-      <div class="project-card project-planned">
+      <div class="project-card project-planned" data-domain="software">
         <div class="project-card-header">
           <span class="emb-status emb-status-amber"></span>
           <span class="project-name">Batch Comparison Tool</span>
@@ -44,7 +50,7 @@
         </div>
       </div>
 
-      <div class="project-card project-planned">
+      <div class="project-card project-planned" data-domain="embedded">
         <div class="project-card-header">
           <span class="emb-status emb-status-amber"></span>
           <span class="project-name">Custom Sensor Node</span>
@@ -59,7 +65,7 @@
         </div>
       </div>
 
-      <div class="project-card project-planned">
+      <div class="project-card project-planned" data-domain="pharma">
         <div class="project-card-header">
           <span class="emb-status emb-status-amber"></span>
           <span class="project-name">MPC for Crystallization</span>
@@ -74,7 +80,7 @@
         </div>
       </div>
 
-      <div class="project-card project-planned">
+      <div class="project-card project-planned" data-domain="software">
         <div class="project-card-header">
           <span class="emb-status emb-status-amber"></span>
           <span class="project-name">Electronic Batch Record Engine</span>
@@ -89,7 +95,7 @@
         </div>
       </div>
 
-      <div class="project-card project-planned">
+      <div class="project-card project-planned" data-domain="embedded">
         <div class="project-card-header">
           <span class="emb-status emb-status-amber"></span>
           <span class="project-name">OPC-UA to MQTT Bridge</span>

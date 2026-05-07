@@ -227,6 +227,23 @@ html.theme-transitioning body *::after {
 .site-logo:hover .logo-hex { color: var(--accent); }
 .logo-hex { color: var(--text-3); transition: color 0.2s; }
 
+/* Header section label */
+.nav-section-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--text-3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-right: -0.5rem;
+}
+.nav-section-label.visible { opacity: 0.6; }
+@media (max-width: 768px) { .nav-section-label { display: none; } }
+
 .nav-menu {
   list-style: none;
   display: flex;
@@ -2769,6 +2786,42 @@ body:not(.home) .section-dots { display: none; }
   letter-spacing: 0.5px;
   flex-shrink: 0;
   opacity: 0.8;
+}
+
+/* Project filters */
+.project-filters {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px;
+  width: fit-content;
+}
+.filter-btn {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.3rem 0.65rem;
+  border-radius: 3px;
+  border: none;
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.filter-btn:hover { color: var(--text); background: var(--bg-alt); }
+.filter-btn.filter-active { color: var(--text); background: var(--bg-alt); box-shadow: var(--shadow-sm); }
+.filter-btn[data-filter="pharma"].filter-active { color: var(--accent); }
+.filter-btn[data-filter="embedded"].filter-active { color: var(--highlight); }
+.filter-btn[data-filter="software"].filter-active { color: var(--text); }
+
+/* Filtered cards */
+.project-card.filtered-out {
+  display: none;
 }
 
 .project-cards {
