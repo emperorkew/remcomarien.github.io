@@ -16,9 +16,11 @@
   }
   if (toggle) {
     toggle.addEventListener('click', () => {
+      html.classList.add('theme-transitioning');
       const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
+      setTimeout(() => html.classList.remove('theme-transitioning'), 500);
     });
   }
 
