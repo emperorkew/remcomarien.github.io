@@ -271,6 +271,12 @@
         document.getElementById('cstr-tau').textContent = isFinite(tau) ? tau.toFixed(2) : '\u221E';
       }
 
+      // Sync hero statusbar with demo values
+      const heroTemp = document.getElementById('hero-temp');
+      if (heroTemp) {
+        heroTemp.textContent = T.toFixed(1) + ' K';
+      }
+
       // Draw graph: rate vs temperature curve
       drawGraph(T, C, Ea);
     }
@@ -862,6 +868,24 @@
       }
     }, { threshold: 0.5 });
     factsObs.observe(factsStrip);
+  }
+
+  // === Section nav dots ===
+  const sectionDots = document.querySelectorAll('.section-dot');
+  const sections = ['hero', 'narrative', 'demo', 'expertise', 'embedded', 'connect'];
+  if (sectionDots.length) {
+    var sectionEls = sections.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+    var sectionObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          sectionDots.forEach(function(dot) {
+            dot.classList.toggle('active', dot.getAttribute('data-section') === id);
+          });
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-10% 0px -10% 0px' });
+    sectionEls.forEach(function(el) { sectionObs.observe(el); });
   }
 
   // === Narrative active step ===

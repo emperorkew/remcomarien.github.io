@@ -353,6 +353,20 @@ html.theme-transitioning body *::after {
   overflow: hidden;
 }
 
+/* Hero scanline — simulates CRT/HMI startup */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 50%, rgba(0,0,0,0.02) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+}
+[data-theme="dark"] .hero::after { opacity: 0.15; }
+
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -963,12 +977,13 @@ html.theme-transitioning body *::after {
 .typed-word { color: var(--accent); }
 .typed-cursor {
   display: inline-block;
-  width: 2px;
-  height: 0.75em;
+  width: 0.55em;
+  height: 0.08em;
   background: var(--accent);
   margin-left: 1px;
-  animation: blink 1s step-end infinite;
-  vertical-align: text-bottom;
+  animation: blink 0.8s step-end infinite;
+  vertical-align: baseline;
+  margin-bottom: 0.05em;
 }
 @keyframes blink { 50% { opacity: 0; } }
 
@@ -1122,7 +1137,9 @@ html.theme-transitioning body *::after {
   height: 24px;
   background: var(--bg);
   display: block;
+  transition: transform 0.3s var(--ease);
 }
+.pipe-divider:hover .valve-symbol { transform: rotate(90deg); }
 
 .pipe-divider .valve-symbol::before {
   content: '';
@@ -1426,6 +1443,11 @@ html.theme-transitioning body *::after {
   letter-spacing: 0.5px;
   flex-shrink: 0;
   opacity: 0.8;
+  transition: opacity 0.3s, box-shadow 0.3s;
+}
+.section-header h2:hover::before {
+  opacity: 1;
+  box-shadow: 0 0 8px var(--accent-glow);
 }
 .section-sub { color: var(--text-2); font-size: 0.9rem; max-width: 600px; }
 
@@ -2320,6 +2342,62 @@ html.theme-transitioning body *::after {
   background: #22c55e;
   animation: led-pulse 2s ease infinite;
 }
+
+/* === Section Nav Dots === */
+.section-dots {
+  position: fixed;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: flex-end;
+}
+.section-dot {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  cursor: none;
+}
+.section-dot::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-3);
+  background: transparent;
+  transition: all 0.3s var(--ease);
+  flex-shrink: 0;
+  opacity: 0.4;
+}
+.section-dot span {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--text-3);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(5px);
+  transition: all 0.2s var(--ease);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.section-dot:hover::after { border-color: var(--accent); opacity: 0.8; transform: scale(1.3); }
+.section-dot:hover span { opacity: 0.7; transform: translateX(0); }
+.section-dot.active::after {
+  background: var(--accent);
+  border-color: var(--accent);
+  opacity: 1;
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+.section-dot.active span { opacity: 1; color: var(--accent); transform: translateX(0); }
+
+@media (max-width: 1200px) { .section-dots { right: 0.5rem; } .section-dot span { display: none; } }
+@media (max-width: 768px) { .section-dots { display: none; } }
 
 /* === Back to Top === */
 .back-to-top {
