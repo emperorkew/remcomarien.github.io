@@ -386,6 +386,251 @@
     }
   }
 
+  // === P&ID Equipment Popups ===
+  const pidData = {
+    'V-101': {
+      name: 'Feed Tank',
+      type: 'Vertical Storage Vessel',
+      desc: 'Stores the starting material solution before feeding to the reactor. Equipped with vent, drain valve, and level indication.',
+      specs: [
+        ['Volume', '3.0 m\u00B3'],
+        ['Material', '316L SS'],
+        ['Design P', '0.5 barg'],
+      ],
+      fact: 'In pharma, every vessel needs documented CIP (Clean-In-Place) procedures. A single residue from a previous batch can invalidate an entire production run \u2014 and that\u2019s a very expensive mistake.'
+    },
+    'P-101': {
+      name: 'Feed Pump',
+      type: 'Centrifugal Pump',
+      desc: 'Transfers feed solution from V-101 through the preheater into the reactor at a controlled flow rate.',
+      specs: [
+        ['Flow', '2.5 m\u00B3/h'],
+        ['Head', '15 m'],
+        ['Power', '1.5 kW'],
+      ],
+      fact: 'Pump seal design is critical in pharma \u2014 mechanical seals prevent product contamination AND protect operators from exposure to potent API compounds. A leaking seal can shut down an entire facility.'
+    },
+    'E-101': {
+      name: 'Preheater',
+      type: 'Shell & Tube Heat Exchanger',
+      desc: 'Heats the feed stream to the target reactor inlet temperature using plant steam on the shell side.',
+      specs: [
+        ['Duty', '45 kW'],
+        ['Area', '2.8 m\u00B2'],
+        ['LMTD', '28 K'],
+      ],
+      fact: 'Precise inlet temperature control can determine which crystal polymorph forms. A 2\u00B0C difference at the wrong moment created a $250M problem for Abbott\u2019s Ritonavir in 1998.'
+    },
+    'R-101': {
+      name: 'CSTR Reactor',
+      type: 'Jacketed Continuous Stirred Tank Reactor',
+      desc: 'The heart of the process. Performs the API synthesis reaction under controlled temperature, pressure, and agitation. Equipped with dual impellers, baffles, cooling jacket, and safety relief valve.',
+      specs: [
+        ['Volume', '2.5 m\u00B3'],
+        ['Temp', '340 K'],
+        ['Speed', '180 RPM'],
+      ],
+      fact: 'The baffles aren\u2019t decorative \u2014 without them, the liquid would just spin in a vortex and barely mix. Four baffles at 90\u00B0 spacing convert rotational flow into turbulent radial mixing. The difference in reaction yield can be 20%+.'
+    },
+    'E-102': {
+      name: 'Cooler',
+      type: 'Shell & Tube Heat Exchanger',
+      desc: 'Cools the reactor product stream before crystallization. The cooling rate is critical \u2014 it directly affects crystal nucleation and growth.',
+      specs: [
+        ['Duty', '60 kW'],
+        ['CW Flow', '8 m\u00B3/h'],
+        ['Tout', '285 K'],
+      ],
+      fact: 'Cooling too fast creates millions of tiny crystal nuclei (fines) that are impossible to filter. Too slow and you get a few massive crystals with impurities trapped inside. The cooling profile is often the most critical CPP in the entire process.'
+    },
+    'CR-101': {
+      name: 'Crystallizer',
+      type: 'Draft Tube Baffle Crystallizer',
+      desc: 'Controlled crystallization of the API from the cooled solution. Temperature profile and agitation determine crystal size distribution and polymorph form.',
+      specs: [
+        ['Volume', '1.8 m\u00B3'],
+        ['Temp', '278 K'],
+        ['Yield', '87%'],
+      ],
+      fact: 'The same molecule can crystallize into different polymorphs \u2014 same atoms, different arrangement. Polymorph II of a drug might dissolve 10x faster than Polymorph I, completely changing its bioavailability. Controlling which form you get is both an art and a science.'
+    },
+    'CF-101': {
+      name: 'Centrifuge',
+      type: 'Peeler Centrifuge',
+      desc: 'Separates API crystals from the mother liquor by centrifugal force. The mother liquor is recycled back to recover dissolved product.',
+      specs: [
+        ['Speed', '1200 RPM'],
+        ['G-force', '800 G'],
+        ['Cake', '~120 kg'],
+      ],
+      fact: 'The mother liquor recycle is an economic necessity but a quality nightmare \u2014 impurities accumulate with each recycle pass. Process engineers use "purge ratios" to balance yield against impurity buildup across campaigns.'
+    },
+    'D-101': {
+      name: 'Vacuum Dryer',
+      type: 'Agitated Vacuum Dryer',
+      desc: 'Removes residual solvent from the wet crystal cake under vacuum with nitrogen sweep. Lower pressure means lower boiling point, protecting heat-sensitive APIs.',
+      specs: [
+        ['Pressure', '50 mbar'],
+        ['Temp', '313 K'],
+        ['LOD', '<0.5%'],
+      ],
+      fact: 'ICH Q3C sets strict limits on residual solvents in APIs. Class 2 solvents (like dichloromethane) must be below 600 ppm. That\u2019s like finding 6 specific grains of sand in 10,000 \u2014 and your patients\u2019 safety depends on hitting that target.'
+    },
+    'FIC-103': {
+      name: 'Flow Controller',
+      type: 'Flow Indicator Controller',
+      desc: 'Controls feed flow rate to the reactor via the control valve. The flow totalizer tracks exact amounts for the batch record.',
+      specs: [
+        ['Range', '0\u201310 m\u00B3/h'],
+        ['Signal', '4\u201320 mA'],
+        ['Action', 'Reverse'],
+      ],
+      fact: 'In GMP manufacturing, the flow totalizer reading is a legal document. If the batch record says 2,500.0 L of reagent A was added, that number goes to the FDA. No pressure.'
+    },
+    'TI-104': {
+      name: 'Temperature Indicator',
+      type: 'RTD Temperature Sensor (Pt100)',
+      desc: 'Monitors preheater outlet temperature. Provides feedback for steam valve adjustment.',
+      specs: [
+        ['Range', '0\u2013200 \u00B0C'],
+        ['Accuracy', '\u00B10.1 K'],
+        ['Element', 'Pt100'],
+      ],
+      fact: 'Pt100 sensors use the fact that platinum\u2019s electrical resistance changes linearly with temperature. At 0\u00B0C it\u2019s exactly 100\u03A9 \u2014 hence the name. Pharma prefers them over thermocouples for their stability and accuracy.'
+    },
+    'TIC-101': {
+      name: 'Reactor Temperature Controller',
+      type: 'Temperature Indicator Controller',
+      desc: 'The most critical control loop in the process. Controls reactor temperature by modulating cooling water flow through the jacket. Prevents thermal runaway.',
+      specs: [
+        ['Setpoint', '342.7 K'],
+        ['Control', 'Cascade PID'],
+        ['Output', 'CW valve'],
+      ],
+      fact: 'Exothermic reactions can run away \u2014 higher temperature increases reaction rate, which generates more heat, which raises temperature further. TIC-101 is literally the loop that prevents an explosion. It doesn\u2019t get coffee breaks.'
+    },
+    'PI-102': {
+      name: 'Pressure Indicator',
+      type: 'Pressure Transmitter',
+      desc: 'Monitors reactor headspace pressure. A sudden pressure rise can indicate a runaway reaction or blocked vent.',
+      specs: [
+        ['Range', '0\u20136 barg'],
+        ['Alarm H', '2.5 barg'],
+        ['PSV set', '3.5 barg'],
+      ],
+      fact: 'The PSV (pressure safety valve) above the reactor is the last line of defense. If PI-102, the control system, AND the operator all fail to catch a pressure excursion, the PSV pops open mechanically. No power needed. Pure physics saving lives.'
+    },
+    'AIC-108': {
+      name: 'pH Controller',
+      type: 'Analytical Indicator Controller',
+      desc: 'Controls reactor pH by dosing acid or base. Many pharmaceutical reactions are highly pH-dependent \u2014 a shift of 0.5 pH units can crash yield from 90% to 30%.',
+      specs: [
+        ['Range', 'pH 0\u201314'],
+        ['Setpoint', 'pH 7.2'],
+        ['Probe', 'Glass electrode'],
+      ],
+      fact: 'pH probes in reactors live a rough life \u2014 organic solvents, high temperatures, aggressive chemicals. They drift constantly and need calibrating every batch. Inline pH is one of the hardest measurements to keep accurate in pharma.'
+    },
+    'TIC-105': {
+      name: 'Crystallizer Temperature Controller',
+      type: 'Temperature Indicator Controller',
+      desc: 'Controls the cooling profile in the crystallizer. Typically follows a programmed curve \u2014 fast cooling to nucleation, then slow cooling for crystal growth.',
+      specs: [
+        ['Profile', 'Linear ramp'],
+        ['Rate', '-0.3 K/min'],
+        ['End T', '278 K'],
+      ],
+      fact: 'The "metastable zone width" is the temperature gap between saturation and spontaneous nucleation. Staying inside it means controlled crystal growth. Cross it and you get an uncontrolled nucleation storm \u2014 millions of tiny useless crystals.'
+    },
+    'LIC-106': {
+      name: 'Level Controller',
+      type: 'Level Indicator Controller',
+      desc: 'Controls the crystallizer fill level. Determines when the batch is transferred to the centrifuge for solid-liquid separation.',
+      specs: [
+        ['Range', '0\u2013100%'],
+        ['Type', 'Radar'],
+        ['Alarm L', '15%'],
+      ],
+      fact: 'Radar level measurement works through vapor and foam \u2014 unlike older float-based sensors that get coated with crystals and stick. In a crystallizer full of slurry, non-contact measurement isn\u2019t a luxury, it\u2019s survival.'
+    },
+    'PIC-107': {
+      name: 'Dryer Pressure Controller',
+      type: 'Pressure Indicator Controller',
+      desc: 'Controls vacuum level in the dryer. Lower pressure lowers the solvent boiling point, enabling drying at mild temperatures.',
+      specs: [
+        ['Setpoint', '50 mbar'],
+        ['Vacuum', 'Liquid ring'],
+        ['N\u2082 sweep', '5 L/min'],
+      ],
+      fact: 'The nitrogen sweep serves two purposes: it carries away evaporated solvent AND prevents an explosive atmosphere inside the dryer. Many organic solvents form explosive mixtures with air \u2014 N\u2082 inerting keeps the oxygen below the LOC (Limiting Oxygen Concentration).'
+    },
+  };
+
+  const popup = document.getElementById('pid-popup');
+  if (popup) {
+    const popupTag = document.getElementById('pid-popup-tag');
+    const popupName = document.getElementById('pid-popup-name');
+    const popupType = document.getElementById('pid-popup-type');
+    const popupDesc = document.getElementById('pid-popup-desc');
+    const popupSpecs = document.getElementById('pid-popup-specs');
+    const popupFact = document.getElementById('pid-popup-fact');
+    const popupClose = document.getElementById('pid-popup-close');
+
+    function showPopup(tag, rect) {
+      const data = pidData[tag];
+      if (!data) return;
+
+      popupTag.textContent = tag;
+      popupName.textContent = data.name;
+      popupType.textContent = data.type;
+      popupDesc.textContent = data.desc;
+      popupFact.textContent = data.fact;
+
+      popupSpecs.innerHTML = data.specs.map(function(s) {
+        return '<div class="pid-popup-spec"><span class="pid-popup-spec-label">' + s[0] + '</span><span class="pid-popup-spec-val">' + s[1] + '</span></div>';
+      }).join('');
+
+      popup.classList.add('active');
+
+      // Position near the clicked element
+      var heroRect = document.getElementById('hero').getBoundingClientRect();
+      var left = rect.left + rect.width / 2 - 160;
+      var top = rect.bottom + 12;
+
+      // Keep within viewport
+      if (left < 16) left = 16;
+      if (left + 320 > window.innerWidth - 16) left = window.innerWidth - 336;
+      if (top + 300 > window.innerHeight) top = rect.top - 320;
+
+      popup.style.left = left + 'px';
+      popup.style.top = top + 'px';
+      popup.style.position = 'fixed';
+    }
+
+    function hidePopup() {
+      popup.classList.remove('active');
+    }
+
+    document.querySelectorAll('.pid-clickable').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var tag = el.getAttribute('data-pid');
+        var rect = el.getBoundingClientRect();
+        showPopup(tag, rect);
+      });
+    });
+
+    popupClose.addEventListener('click', hidePopup);
+    document.addEventListener('click', function(e) {
+      if (!popup.contains(e.target) && !e.target.closest('.pid-clickable')) {
+        hidePopup();
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') hidePopup();
+    });
+  }
+
   // === Tilt effect on cards ===
   document.querySelectorAll('[data-tilt]').forEach(card => {
     card.addEventListener('mousemove', (e) => {

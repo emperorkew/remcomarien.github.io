@@ -31,7 +31,7 @@
       <!-- ═══ FEED SECTION ═══ -->
 
       <!-- V-101: Feed Tank -->
-      <g class="equipment" transform="translate(70,250)">
+      <g class="equipment pid-clickable" data-pid="V-101" transform="translate(70,250)">
         <rect class="pid-vessel" x="-25" y="-45" width="50" height="90" rx="3"/>
         <rect class="pid-liquid" x="-23" y="-5" width="46" height="42" rx="2"/>
         <!-- Top vent nozzle -->
@@ -51,7 +51,7 @@
       <polyline class="pipe" points="95,270 120,270"/>
 
       <!-- P-101: Feed Pump -->
-      <g class="equipment" transform="translate(138,270)">
+      <g class="equipment pid-clickable" data-pid="P-101" transform="translate(138,270)">
         <circle class="pid-pump" cx="0" cy="0" r="12"/>
         <path class="pid-pump-impeller" d="M-8,0 L8,-6 M-8,0 L8,6"/>
         <rect class="pid-motor" x="-6" y="-20" width="12" height="8" rx="1"/>
@@ -74,13 +74,15 @@
       <polyline class="pipe" points="181,270 210,270" marker-end="url(#arrow)"/>
 
       <!-- FIC-103 instrument -->
-      <circle class="pid-inst" cx="175" cy="248" r="9"/>
-      <text class="pid-inst-text" x="175" y="251">FIC</text>
-      <text class="pid-inst-num" x="188" y="246">103</text>
-      <line class="pid-signal" x1="175" y1="257" x2="175" y2="262"/>
+      <g class="pid-clickable" data-pid="FIC-103">
+        <circle class="pid-inst" cx="175" cy="248" r="9"/>
+        <text class="pid-inst-text" x="175" y="251">FIC</text>
+        <text class="pid-inst-num" x="188" y="246">103</text>
+        <line class="pid-signal" x1="175" y1="257" x2="175" y2="262"/>
+      </g>
 
       <!-- E-101: Preheater (shell & tube) -->
-      <g class="equipment" transform="translate(240,270)">
+      <g class="equipment pid-clickable" data-pid="E-101" transform="translate(240,270)">
         <rect class="pid-hx" x="-25" y="-15" width="50" height="30" rx="15"/>
         <path class="pid-hx-tubes" d="M-16,-5 Q-8,4 0,-5 Q8,4 16,-5"/>
         <path class="pid-hx-tubes" d="M-16,5 Q-8,-4 0,5 Q8,-4 16,5"/>
@@ -97,9 +99,11 @@
       <text class="pid-util-label" x="190" y="288">COND</text>
 
       <!-- TI-104 on preheater outlet -->
-      <circle class="pid-inst" cx="278" cy="248" r="9"/>
-      <text class="pid-inst-text" x="278" y="251">TI</text>
-      <text class="pid-inst-num" x="290" y="246">104</text>
+      <g class="pid-clickable" data-pid="TI-104">
+        <circle class="pid-inst" cx="278" cy="248" r="9"/>
+        <text class="pid-inst-text" x="278" y="251">TI</text>
+        <text class="pid-inst-num" x="290" y="246">104</text>
+      </g>
 
       <!-- E-101 → R-101 (up to reactor top feed nozzle at 382,154) -->
       <polyline class="pipe" points="265,270 300,270 300,154 382,154" marker-end="url(#arrow)"/>
@@ -111,7 +115,7 @@
       <!-- ═══ REACTOR SECTION ═══ -->
 
       <!-- R-101: Jacketed CSTR — the central piece -->
-      <g class="equipment" transform="translate(400,210)">
+      <g class="equipment pid-clickable" data-pid="R-101" transform="translate(400,210)">
         <!-- Jacket (dashed) -->
         <rect class="pid-jacket" x="-50" y="-58" width="100" height="135" rx="8"/>
         <!-- Vessel -->
@@ -154,22 +158,28 @@
       <polyline class="pipe-util" points="338,255 350,255"/>
 
       <!-- TIC-101 -->
-      <circle class="pid-inst" cx="456" cy="170" r="9"/>
-      <text class="pid-inst-text" x="456" y="173">TIC</text>
-      <text class="pid-inst-num" x="468" y="167">101</text>
-      <line class="pid-signal" x1="447" y1="173" x2="440" y2="180"/>
+      <g class="pid-clickable" data-pid="TIC-101">
+        <circle class="pid-inst" cx="456" cy="170" r="9"/>
+        <text class="pid-inst-text" x="456" y="173">TIC</text>
+        <text class="pid-inst-num" x="468" y="167">101</text>
+        <line class="pid-signal" x1="447" y1="173" x2="440" y2="180"/>
+      </g>
 
       <!-- PI-102 -->
-      <circle class="pid-inst" cx="456" cy="200" r="9"/>
-      <text class="pid-inst-text" x="456" y="203">PI</text>
-      <text class="pid-inst-num" x="468" y="197">102</text>
-      <line class="pid-signal" x1="447" y1="200" x2="440" y2="200"/>
+      <g class="pid-clickable" data-pid="PI-102">
+        <circle class="pid-inst" cx="456" cy="200" r="9"/>
+        <text class="pid-inst-text" x="456" y="203">PI</text>
+        <text class="pid-inst-num" x="468" y="197">102</text>
+        <line class="pid-signal" x1="447" y1="200" x2="440" y2="200"/>
+      </g>
 
       <!-- AIC-108 (pH) -->
-      <circle class="pid-inst" cx="348" cy="185" r="9"/>
-      <text class="pid-inst-text" x="348" y="188">AIC</text>
-      <text class="pid-inst-num" x="336" y="180">108</text>
-      <line class="pid-signal" x1="355" y1="190" x2="362" y2="198"/>
+      <g class="pid-clickable" data-pid="AIC-108">
+        <circle class="pid-inst" cx="348" cy="185" r="9"/>
+        <text class="pid-inst-text" x="348" y="188">AIC</text>
+        <text class="pid-inst-num" x="336" y="180">108</text>
+        <line class="pid-signal" x1="355" y1="190" x2="362" y2="198"/>
+      </g>
 
       <!-- R-101 outlet → BV → E-102 -->
       <polyline class="pipe" points="440,270 470,270"/>
@@ -183,7 +193,7 @@
       <!-- ═══ DOWNSTREAM SECTION ═══ -->
 
       <!-- E-102: Cooler -->
-      <g class="equipment" transform="translate(550,270)">
+      <g class="equipment pid-clickable" data-pid="E-102" transform="translate(550,270)">
         <rect class="pid-hx" x="-25" y="-15" width="50" height="30" rx="15"/>
         <path class="pid-hx-tubes" d="M-16,-5 Q-8,4 0,-5 Q8,4 16,-5"/>
         <path class="pid-hx-tubes" d="M-16,5 Q-8,-4 0,5 Q8,-4 16,5"/>
@@ -202,7 +212,7 @@
       <polyline class="pipe" points="575,270 610,270 610,230 660,230" marker-end="url(#arrow)"/>
 
       <!-- CR-101: Crystallizer -->
-      <g class="equipment" transform="translate(695,215)">
+      <g class="equipment pid-clickable" data-pid="CR-101" transform="translate(695,215)">
         <path class="pid-vessel-main" d="M-35,-42 L-35,12 L-16,45 L16,45 L35,12 L35,-42 Z"/>
         <ellipse class="pid-vessel-dish" cx="0" cy="-42" rx="35" ry="8"/>
         <path class="pid-crystal" d="M-30,-8 L-14,39 L14,39 L30,-8 Z"/>
@@ -216,21 +226,25 @@
       </g>
 
       <!-- TIC-105 on crystallizer -->
-      <circle class="pid-inst" cx="738" cy="180" r="9"/>
-      <text class="pid-inst-text" x="738" y="183">TIC</text>
-      <text class="pid-inst-num" x="750" y="178">105</text>
-      <line class="pid-signal" x1="738" y1="189" x2="738" y2="198"/>
+      <g class="pid-clickable" data-pid="TIC-105">
+        <circle class="pid-inst" cx="738" cy="180" r="9"/>
+        <text class="pid-inst-text" x="738" y="183">TIC</text>
+        <text class="pid-inst-num" x="750" y="178">105</text>
+        <line class="pid-signal" x1="738" y1="189" x2="738" y2="198"/>
+      </g>
 
       <!-- LIC-106 -->
-      <circle class="pid-inst" cx="650" cy="240" r="9"/>
-      <text class="pid-inst-text" x="650" y="243">LIC</text>
-      <text class="pid-inst-num" x="662" y="237">106</text>
+      <g class="pid-clickable" data-pid="LIC-106">
+        <circle class="pid-inst" cx="650" cy="240" r="9"/>
+        <text class="pid-inst-text" x="650" y="243">LIC</text>
+        <text class="pid-inst-num" x="662" y="237">106</text>
+      </g>
 
       <!-- CR-101 → CF-101 (slurry pipe) -->
       <polyline class="pipe pipe-slurry" points="695,260 695,330 790,330 790,290" marker-end="url(#arrow)"/>
 
       <!-- CF-101: Centrifuge -->
-      <g class="equipment" transform="translate(790,250)">
+      <g class="equipment pid-clickable" data-pid="CF-101" transform="translate(790,250)">
         <ellipse class="pid-vessel-main" cx="0" cy="0" rx="26" ry="35"/>
         <line class="pid-perf" x1="-14" y1="-26" x2="-14" y2="26"/>
         <line class="pid-perf" x1="14" y1="-26" x2="14" y2="26"/>
@@ -249,7 +263,7 @@
       <polyline class="pipe" points="816,230 870,230 870,210 915,210" marker-end="url(#arrow)"/>
 
       <!-- D-101: Vacuum Dryer -->
-      <g class="equipment" transform="translate(955,210)">
+      <g class="equipment pid-clickable" data-pid="D-101" transform="translate(955,210)">
         <rect class="pid-vessel-main" x="-40" y="-20" width="80" height="40" rx="20"/>
         <path class="pid-coil" d="M-24,-7 Q-14,-16 -4,-7 Q6,-16 16,-7 Q24,-16 24,-7"/>
         <path class="pid-coil" d="M-24,7 Q-14,-2 -4,7 Q6,-2 16,7 Q24,-2 24,7"/>
@@ -267,10 +281,12 @@
       </g>
 
       <!-- PIC-107 on dryer -->
-      <circle class="pid-inst" cx="955" cy="155" r="9"/>
-      <text class="pid-inst-text" x="955" y="158">PIC</text>
-      <text class="pid-inst-num" x="967" y="152">107</text>
-      <line class="pid-signal" x1="955" y1="164" x2="955" y2="172"/>
+      <g class="pid-clickable" data-pid="PIC-107">
+        <circle class="pid-inst" cx="955" cy="155" r="9"/>
+        <text class="pid-inst-text" x="955" y="158">PIC</text>
+        <text class="pid-inst-num" x="967" y="152">107</text>
+        <line class="pid-signal" x1="955" y1="164" x2="955" y2="172"/>
+      </g>
 
       <!-- Product out -->
       <polyline class="pipe pipe-product" points="995,210 1030,210 1030,240 1060,240" marker-end="url(#arrow-accent)"/>
@@ -357,6 +373,21 @@
       </div>
     </div>
   </div>
+  <!-- P&ID Equipment Popup -->
+  <div class="pid-popup" id="pid-popup">
+    <div class="pid-popup-bar">
+      <span class="pid-popup-tag" id="pid-popup-tag"></span>
+      <button class="pid-popup-close" id="pid-popup-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="pid-popup-body">
+      <h3 id="pid-popup-name"></h3>
+      <p class="pid-popup-type" id="pid-popup-type"></p>
+      <p class="pid-popup-desc" id="pid-popup-desc"></p>
+      <div class="pid-popup-specs" id="pid-popup-specs"></div>
+      <p class="pid-popup-fact" id="pid-popup-fact"></p>
+    </div>
+  </div>
+
   <div class="scroll-hint" id="scroll-hint">
     <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 4v12M6 12l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
   </div>
