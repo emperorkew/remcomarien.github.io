@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ site.Title }} — Where molecules meet algorithms{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
-  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}Pharmaceutical process engineer & software developer. From reactor control to real-time data systems.{{ end }}">
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}Pharmaceutical process engineer & software developer. From reactor control to ML-based process optimization.{{ end }}">
   <link rel="canonical" href="{{ .Permalink }}">
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='25' y='15' width='50' height='70' rx='5' fill='none' stroke='%23b45309' stroke-width='6'/><ellipse cx='50' cy='15' rx='25' ry='6' fill='none' stroke='%23b45309' stroke-width='5'/><rect x='30' y='50' width='40' height='25' rx='3' fill='%230f766e' opacity='0.3'/><line x1='50' y1='5' x2='50' y2='40' stroke='%23b45309' stroke-width='4'/><line x1='38' y1='40' x2='62' y2='40' stroke='%23b45309' stroke-width='5' stroke-linecap='round'/></svg>">
@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
   <!-- OG / Twitter -->
   <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
-  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}Pharmaceutical process engineer & software developer. From reactor control to real-time data systems.{{ end }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}Pharmaceutical process engineer & software developer. From reactor control to ML-based process optimization.{{ end }}">
   <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:image" content="{{ "images/og.svg" | absURL }}">
@@ -32,7 +32,7 @@
     "name": "Remco Marien",
     "url": "{{ .Permalink }}",
     "jobTitle": "Pharmaceutical Process Engineer & Software Developer",
-    "knowsAbout": ["Pharmaceutical Manufacturing", "Process Automation", "Embedded Systems", "API Synthesis", "PAT", "MPC"],
+    "knowsAbout": ["Pharmaceutical Manufacturing", "Process Automation", "Embedded Systems", "API Synthesis", "PAT", "MPC", "Machine Learning", "Soft Sensors", "Predictive Analytics"],
     "sameAs": [
       "https://github.com/emperorkew",
       "https://www.linkedin.com/in/remco-mari%C3%ABn-3a96361b5/"

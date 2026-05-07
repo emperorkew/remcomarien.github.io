@@ -155,7 +155,7 @@
   // === Typing Effect ===
   const typed = document.getElementById('typed');
   if (typed) {
-    const words = ['pharma engineer', 'reactor whisperer', 'process nerd', 'data wrangler', 'automation addict', 'embedded systems', 'real-time control'];
+    const words = ['pharma engineer', 'reactor whisperer', 'process nerd', 'data wrangler', 'automation addict', 'embedded systems', 'real-time control', 'ML for manufacturing'];
     let wordIdx = 0, charIdx = 0, deleting = false;
 
     function typeLoop() {
@@ -1022,6 +1022,10 @@
       { tag: 'TIC-101', msg: 'Reactor temp high alarm (>348K)', sev: 'high' },
       { tag: 'D-101', msg: 'LOD target reached, drying complete', sev: 'info' },
       { tag: 'CR-101', msg: 'Nucleation event detected by FBRM', sev: 'warn' },
+      { tag: 'ML-001', msg: 'Soft sensor prediction: API conc. 98.2% (HPLC ref: 98.4%)', sev: 'info' },
+      { tag: 'ML-002', msg: 'Batch trajectory T\u00B2 statistic within 95% confidence', sev: 'info' },
+      { tag: 'ML-003', msg: 'SPE alarm: spectral residual exceeds threshold', sev: 'warn' },
+      { tag: 'ML-001', msg: 'NIR model recalibrated, R\u00B2 = 0.994', sev: 'info' },
     ];
     var eventCount = 0;
     function addAlarm() {
