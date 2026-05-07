@@ -5,6 +5,30 @@
 (function () {
   'use strict';
 
+  // === Visibility API — pause intervals when tab hidden ===
+  var _intervals = [];
+  var _origSetInterval = window.setInterval;
+  window.setInterval = function(fn, delay) {
+    var id = _origSetInterval.call(window, fn, delay);
+    _intervals.push({ id: id, fn: fn, delay: delay, paused: false });
+    return id;
+  };
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      _intervals.forEach(function(iv) {
+        clearInterval(iv.id);
+        iv.paused = true;
+      });
+    } else {
+      _intervals.forEach(function(iv) {
+        if (iv.paused) {
+          iv.id = _origSetInterval.call(window, iv.fn, iv.delay);
+          iv.paused = false;
+        }
+      });
+    }
+  });
+
   // === Theme ===
   const toggle = document.getElementById('theme-toggle');
   const html = document.documentElement;
