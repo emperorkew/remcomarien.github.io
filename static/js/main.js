@@ -685,7 +685,8 @@
         popupFlow.style.display = '';
         // Click to navigate
         popupFlow.querySelectorAll('.pid-flow-step:not(.active)').forEach(function(step) {
-          step.addEventListener('click', function() {
+          step.addEventListener('click', function(e) {
+            e.stopPropagation();
             var navTag = step.getAttribute('data-nav');
             var el = document.querySelector('[data-pid="' + navTag + '"]');
             if (el) showPopup(navTag, el.getBoundingClientRect());
