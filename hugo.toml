@@ -1,5 +1,5 @@
 baseURL = "https://emperorkew.github.io/remcomarien.github.io/"
-locale = "nl"
+locale = "en"
 title = "Remco Marien"
 
 [menu]

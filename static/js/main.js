@@ -111,6 +111,20 @@
   });
 
 
+  // === HMI Clock ===
+  const hmiClock = document.getElementById('hmi-clock');
+  if (hmiClock) {
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      hmiClock.textContent = 'BATCH-2026-0137  ' + h + ':' + m + ':' + s;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  }
+
   // === Typing Effect ===
   const typed = document.getElementById('typed');
   if (typed) {
@@ -166,6 +180,20 @@
     }
 
     setInterval(update, 1100);
+
+    // COMM status flicker
+    const heroComm = document.getElementById('hero-comm');
+    if (heroComm) {
+      const commStates = ['OK', 'TX', 'RX', 'POLL', 'OK', 'OK', 'OK'];
+      setInterval(() => {
+        const state = commStates[Math.floor(Math.random() * commStates.length)];
+        heroComm.textContent = state;
+        if (state !== 'OK') {
+          heroComm.style.color = 'var(--accent)';
+          setTimeout(() => { heroComm.style.color = ''; }, 300);
+        }
+      }, 2000);
+    }
   }
   simulateProcess();
 
@@ -222,6 +250,16 @@
 
       document.getElementById('rate-k').textContent = k.toExponential(2) + ' s\u207B\u00B9';
       document.getElementById('rate-r').textContent = rate.toExponential(2) + ' mol/(L\u00B7s)';
+
+      // CSTR live calculation
+      const cstrK = document.getElementById('cstr-k');
+      if (cstrK) {
+        const V = 2500; // 2.5 m³ = 2500 L
+        const tau = (rate > 0) ? C / rate : Infinity;
+        cstrK.textContent = k.toExponential(2);
+        document.getElementById('cstr-rate').textContent = rate.toExponential(2);
+        document.getElementById('cstr-tau').textContent = isFinite(tau) ? tau.toFixed(2) : '\u221E';
+      }
 
       // Draw graph: rate vs temperature curve
       drawGraph(T, C, Ea);

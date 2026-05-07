@@ -80,6 +80,18 @@
 }
 .skip-nav:focus { top: 0; }
 
+/* === Focus Visible (a11y) === */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.btn:focus-visible, .connect-link:focus-visible, .nav-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
 /* === Base === */
 html { font-size: 16px; scroll-behavior: smooth; }
 
@@ -524,10 +536,11 @@ body {
   box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.03);
 }
 
-/* HMI window title bar */
-.hero-text::before {
-  content: '● PROCESS OVERVIEW — OPERATOR HMI';
-  display: block;
+/* HMI window title bar — now uses real markup instead of ::before */
+.hmi-titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-family: var(--mono);
   font-size: 0.6rem;
   font-weight: 600;
@@ -536,6 +549,22 @@ body {
   background: var(--bg-code);
   border-bottom: 1px solid var(--border);
   padding: 0.35rem 0.75rem;
+}
+.hmi-titlebar-left { display: flex; align-items: center; gap: 0.4rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 480px) {
+  .hmi-titlebar { font-size: 0.5rem; padding: 0.3rem 0.5rem; }
+  .hmi-clock { display: none; }
+}
+.hmi-titlebar-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: led-pulse 2s ease infinite;
+}
+.hmi-clock {
+  color: var(--text-3);
+  opacity: 0.7;
 }
 
 .hero-title,
@@ -1089,8 +1118,9 @@ body {
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
-.eq-block:nth-child(2n) { border-right: none; }
-.eq-block:nth-last-child(-n+2) { border-bottom: none; }
+.eq-block:nth-child(2n):not(.eq-block-live) { border-right: none; }
+.eq-block:nth-child(3),
+.eq-block:nth-child(4) { border-bottom: none; }
 .eq-label {
   font-family: var(--mono);
   font-size: 0.6rem;
@@ -1116,6 +1146,13 @@ body {
   color: var(--text-3);
   margin-top: 0.35rem;
   font-style: italic;
+}
+
+.eq-block-live {
+  grid-column: 1 / -1;
+  border: none;
+  border-top: 1px solid var(--border);
+  background: var(--bg-code);
 }
 
 @media (max-width: 768px) {
@@ -2240,7 +2277,8 @@ body {
   .pipe-divider { height: 24px; }
   .section-header h2 { font-size: 1.1rem; flex-wrap: wrap; }
   .section-header h2::before { font-size: 0.55rem; }
-  .hero-bg { display: none; }
+  .hero-bg { display: block; opacity: 0.15; pointer-events: none; }
+  .hero-bg .pid-bg { top: 10%; transform: translateY(-10%) scale(1.5); }
   .hero { background: var(--bg-code); }
   .narrative-track { padding-left: 0; }
   .narrative-track::before { display: none; }
